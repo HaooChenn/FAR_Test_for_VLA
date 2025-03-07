@@ -10,8 +10,8 @@
 
 ## 📰 News
 
-- [2025-2-26] We release the code and checkpoint of `FAR` for class-to-image generation on ImageNet dataset.
-- [2025-2-26] The [tech report](https://arxiv.org/abs/2406.11838) of `FAR` is available.
+- [2025-3-7] We release the code and checkpoint of `FAR` for class-to-image generation on ImageNet dataset.
+- [2025-3-7] The [tech report](https://arxiv.org/abs/2406.11838) of `FAR` is available.
 
 
 ## Preparation
