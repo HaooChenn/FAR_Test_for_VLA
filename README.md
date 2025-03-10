@@ -1,6 +1,6 @@
 # Frequency Autoregressive Image Generation with Continuous Tokens <br><sub>Official PyTorch Implementation</sub>
 
-[![arXiv](https://img.shields.io/badge/arXiv%20paper-2406.11838-b31b1b.svg)](https://arxiv.org/abs/2503.05305)&nbsp;
+[![arXiv](https://img.shields.io/badge/arXiv%20paper-2503.05305-b31b1b.svg)](https://arxiv.org/abs/2503.05305)&nbsp;
 [![huggingface](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-far-yellow)](https://huggingface.co/figereatfish/FAR)&nbsp;
 
 <p align="center">
