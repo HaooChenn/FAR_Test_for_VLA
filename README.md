@@ -172,7 +172,7 @@ If you have any questions, feel free to contact me through email (yuhu520@mail.u
 @article{yu2025frequency,
   author    = {Hu Yu and Hao Luo and Hangjie Yuan and Yu Rong and Feng Zhao},
   title     = {Frequency Autoregressive Image Generation with Continuous Tokens},
-  journal   = {arxiv: 2406.07550},
+  journal   = {arxiv: 2503.05305},
   year      = {2025}
 }
 ```
