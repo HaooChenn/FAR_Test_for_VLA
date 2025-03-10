@@ -1,6 +1,6 @@
 # Frequency Autoregressive Image Generation with Continuous Tokens <br><sub>Official PyTorch Implementation</sub>
 
-[![arXiv](https://img.shields.io/badge/arXiv%20paper-2406.11838-b31b1b.svg)](https://arxiv.org/abs/2406.11838)&nbsp;
+[![arXiv](https://img.shields.io/badge/arXiv%20paper-2406.11838-b31b1b.svg)](https://arxiv.org/abs/2503.05305)&nbsp;
 [![huggingface](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-far-yellow)](https://huggingface.co/figereatfish/FAR)&nbsp;
 
 <p align="center">
@@ -11,7 +11,7 @@
 ## 📰 News
 
 - [2025-3-7] We release the code and checkpoint of `FAR` for class-to-image generation on ImageNet dataset.
-- [2025-3-7] The [tech report](https://arxiv.org/abs/2406.11838) of `FAR` is available.
+- [2025-3-7] The [tech report](https://arxiv.org/abs/2503.05305) of `FAR` is available.
 
 
 ## Preparation
