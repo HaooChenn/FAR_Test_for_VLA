@@ -168,4 +168,11 @@ A large portion of codes in this repo is based on [MAE](https://github.com/faceb
 If you have any questions, feel free to contact me through email (yuhu520@mail.ustc.edu.cn). Enjoy!
 
 ## Citation
-
+```BibTeX
+@article{yu2025frequency,
+  author    = {Hu Yu and Hao Luo and Hangjie Yuan and Yu Rong and Feng Zhao},
+  title     = {Frequency Autoregressive Image Generation with Continuous Tokens},
+  journal   = {arxiv: 2406.07550},
+  year      = {2025}
+}
+```
