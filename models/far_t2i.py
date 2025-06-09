@@ -374,7 +374,7 @@ class FAR_T2I(nn.Module):
             tokens = cur_tokens.clone()
 
         tokens = tokens.transpose_(1, 2).reshape(bsz, -1, self.seq_h, self.seq_w)
-        tokens = vae.decode(tokens)
+        tokens = vae.decode(tokens / 0.2325)
 
         return tokens
         
