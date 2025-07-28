@@ -7,6 +7,11 @@
   <img src="demo/Visual_ImageNet.png" width="720">
 </p>
 
+## Test
+```
+chmod +x run_t2i_evaluation.sh
+./run_t2i_evaluation.sh
+```
 
 ## 📰 News
 
