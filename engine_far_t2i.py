@@ -123,11 +123,18 @@ def train_one_epoch(text_tokenizer, text_model, llm_system_prompt, model, vae,
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
 
 
+
 def evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, vae, ema_params, args, epoch, batch_size=16, log_writer=None, cfg=1.0,
              use_ema=True):
     model_without_ddp.eval()
-    num_steps = 1
-
+    
+    # 为了更准确的速度测试，增加测试步数
+    num_steps = getattr(args, 'speed_test_steps', 5)  # 可以通过参数控制测试步数
+    
+    # 创建速度测试结果保存目录
+    speed_results_dir = os.path.join(args.output_dir, "speed_results")
+    os.makedirs(speed_results_dir, exist_ok=True)
+    
     # switch to ema params
     if use_ema:
         model_state_dict = copy.deepcopy(model_without_ddp.state_dict())
@@ -138,12 +145,15 @@ def evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, v
         print("Switch to ema")
         model_without_ddp.load_state_dict(ema_state_dict)
 
+    # 用于记录详细的时间统计
+    detailed_times = []
     used_time = 0
     gen_img_cnt = 0
+    warmup_steps = 1  # 预热步数，不计入统计
 
     
     for i in range(num_steps):
-        print("Generation step {}/{}".format(i, num_steps))
+        print("Generation step {}/{}".format(i+1, num_steps))
         
         prompts = ["A photo of a dog", "A happy girl", "A boy and a girl fall in love.", "Drone view of waves crashing against the rugged cliffs in Big Sur ..", 
                    "A dog that has been meditating all the time",  "Editorial photoshoot of a old woman, high fashion 2000s fashion", "A small cactus with a happy face in the Sahara desert.", "An astronaut riding a horse on the moon, oil painting by Van Gogh.", 
@@ -154,10 +164,12 @@ def evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, v
                   "A photo of a smiling person with snow goggles onholding a snowboard", "A photo of a cat playing chess.", "A bird made of crystal", "A pair of old boots covered in mud.", 
                    "Photo of a bear catching salmon.",  "High quality, a close up photo of a human hand", "A white horse reading a book, fairytale.", "A window with raindrops tricklingdown, overlooking a blurry city."]
 
+        # 只使用与batch_size对应数量的prompts
+        prompts_batch = prompts[:batch_size]
         
         with torch.no_grad():
             labels_gen = encode_prompts(
-                prompts,
+                prompts_batch,
                 text_model,
                 text_tokenizer,
                 text_tokenizer_max_length=300,
@@ -165,9 +177,8 @@ def evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, v
                 use_llm_system_prompt=True,
             )
 
-
         torch.cuda.synchronize()
-        start_time = time.time()
+        step_start_time = time.time()
 
         device = torch.device("cuda")
         # generation
@@ -177,17 +188,86 @@ def evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, v
                                                                  cfg_schedule=args.cfg_schedule, labels=labels_gen, device=device,
                                                                  temperature=args.temperature, output_dir=args.output_dir)
 
-        # measure speed after the first generation batch
-        if i >= 1:
-            torch.cuda.synchronize()
-            used_time += time.time() - start_time
+        torch.cuda.synchronize()
+        step_end_time = time.time()
+        step_time = step_end_time - step_start_time
+        
+        # 记录每步的详细时间（跳过预热步）
+        if i >= warmup_steps:
+            detailed_times.append({
+                'step': i+1,
+                'batch_size': batch_size,
+                'total_time': step_time,
+                'time_per_image': step_time / batch_size,
+                'images_per_second': batch_size / step_time
+            })
+            used_time += step_time
             gen_img_cnt += batch_size
-            print("Generating {} images takes {:.5f} seconds, {:.5f} sec per image".format(gen_img_cnt, used_time, used_time / gen_img_cnt))
+            
+        print("Step {}: Generated {} images in {:.5f} seconds, {:.5f} sec per image, {:.2f} images/sec".format(
+            i+1, batch_size, step_time, step_time/batch_size, batch_size/step_time))
 
         torch.distributed.barrier()
         sampled_images = sampled_images.detach().cpu()
 
-        save_image(sampled_images, nrow=8, show=False, path=os.path.join(args.output_dir, f"epoch{epoch}.png"), to_grayscale=False)
+        # 保存第一步的生成图像作为样例
+        if i == 0:
+            save_image(sampled_images, nrow=8, show=False, path=os.path.join(args.output_dir, f"epoch{epoch}.png"), to_grayscale=False)
+
+    # 计算统计数据（排除预热步）
+    if len(detailed_times) > 0:
+        avg_time_per_image = used_time / gen_img_cnt
+        avg_images_per_second = gen_img_cnt / used_time
+        
+        # 创建详细的速度报告
+        speed_report = {
+            'model_name': 'FAR_T2I',
+            'timestamp': datetime.datetime.now().isoformat(),
+            'test_parameters': {
+                'batch_size': batch_size,
+                'num_iter': args.num_iter,
+                'num_sampling_steps': args.num_sampling_steps,
+                'cfg': cfg,
+                'temperature': args.temperature,
+                'img_size': args.img_size,
+                'use_ema': use_ema,
+                'total_test_steps': num_steps,
+                'warmup_steps': warmup_steps
+            },
+            'speed_statistics': {
+                'total_images_generated': gen_img_cnt,
+                'total_generation_time': used_time,
+                'average_time_per_image': avg_time_per_image,
+                'average_images_per_second': avg_images_per_second,
+                'min_time_per_image': min(t['time_per_image'] for t in detailed_times),
+                'max_time_per_image': max(t['time_per_image'] for t in detailed_times),
+                'std_time_per_image': np.std([t['time_per_image'] for t in detailed_times])
+            },
+            'detailed_step_times': detailed_times
+        }
+        
+        # 保存JSON格式的详细报告
+        speed_report_path = os.path.join(speed_results_dir, f"speed_report_epoch{epoch}_cfg{cfg}_bsz{batch_size}.json")
+        with open(speed_report_path, 'w') as f:
+            json.dump(speed_report, f, indent=2)
+        
+        # 保存CSV格式的简化报告（便于Excel打开）
+        csv_report_path = os.path.join(speed_results_dir, f"speed_summary_epoch{epoch}_cfg{cfg}_bsz{batch_size}.csv")
+        with open(csv_report_path, 'w') as f:
+            f.write("Model,Batch_Size,Num_Iter,Sampling_Steps,CFG,Avg_Time_Per_Image,Avg_Images_Per_Sec,Total_Images,Total_Time\n")
+            f.write(f"FAR_T2I,{batch_size},{args.num_iter},{args.num_sampling_steps},{cfg},{avg_time_per_image:.5f},{avg_images_per_second:.2f},{gen_img_cnt},{used_time:.5f}\n")
+        
+        # 在控制台输出总结
+        print("\n" + "="*50)
+        print("SPEED TEST RESULTS")
+        print("="*50)
+        print(f"Model: FAR T2I")
+        print(f"Total images generated: {gen_img_cnt}")
+        print(f"Total generation time: {used_time:.5f} seconds")
+        print(f"Average time per image: {avg_time_per_image:.5f} seconds")
+        print(f"Average images per second: {avg_images_per_second:.2f}")
+        print(f"Results saved to: {speed_report_path}")
+        print("="*50 + "\n")
 
     torch.distributed.barrier()
     time.sleep(10)

@@ -86,6 +86,13 @@ def get_args_parser():
     parser.add_argument('--evaluate', action='store_true')
     parser.add_argument('--eval_bsz', type=int, default=24, help='generation batch size')
 
+
+    # Speed test parameters (新增)
+    parser.add_argument('--speed_test_steps', type=int, default=5, 
+                        help='number of steps for speed testing (excluding warmup)')
+    parser.add_argument('--speed_test', action='store_true',
+                        help='enable detailed speed testing and reporting')
+    
     # Optimizer parameters
     parser.add_argument('--weight_decay', type=float, default=0.02,
                         help='weight decay (default: 0.02)')
