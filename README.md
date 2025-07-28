@@ -8,6 +8,11 @@
 </p>
 
 ## Test
+Installing requirements:
+```
+pip install transformers==4.35.0 diffusers==0.24.0 matplotlib==3.7.2 Pillow==9.5.0 tqdm==4.66.1 IPython==8.12.2
+```
+Running test file:
 ```
 chmod +x run_t2i_evaluation.sh
 ./run_t2i_evaluation.sh
