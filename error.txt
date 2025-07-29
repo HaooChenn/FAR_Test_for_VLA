@@ -1,0 +1,316 @@
+far) /mnt/nas-data-1/chenhao/FAR> ./run_t2i_evaluation.sh
+==========================================
+FAR T2I Comprehensive Evaluation Script
+==========================================
+Setting up directory structure and prompt files...
+Prompt files created successfully!
+- Simple prompts: ./prompts/simple_prompts.txt (20 prompts)
+- Medium prompts: ./prompts/medium_prompts.txt (20 prompts)
+- Complex prompts: ./prompts/complex_prompts.txt (20 prompts)
+
+Starting comprehensive evaluation...
+Configuration:
+- GPU: 1
+- Batch Size: 8
+- Image Size: 256
+- CFG: 3.0
+- Temperature: 1.0
+- Num Iterations: 10
+- Speed Test Steps: 10
+
+
+==========================================
+Running far_huge with 50 sampling steps
+Prompt type: simple
+==========================================
+Start time: 2025-07-29 14:13:03
+| distributed init (rank 0): env://, gpu 0
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+dsw95381-5f7b687f66-w5sjz:76597:76597 [0] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:76597:76597 [0] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:76597:76597 [0] NCCL INFO cudaDriverVersion 12040
+NCCL version 2.19.3+cuda11.8
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO comm 0x56361043e2e0 rank 0 nranks 1 cudaDev 0 nvmlDev 1 busId 1e000 commId 0xda50f24043f6a8d4 - Init START
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO Setting affinity for GPU 1 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO Channel 00/02 :    0
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO Channel 01/02 :    0
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO P2P Chunksize set to 131072
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:76597:77472 [0] NCCL INFO comm 0x56361043e2e0 rank 0 nranks 1 cudaDev 0 nvmlDev 1 busId 1e000 commId 0xda50f24043f6a8d4 - Init COMPLETE
+[14:13:23.368737] job dir: /mnt/nas-data-1/chenhao/FAR
+[14:13:23.368976] Namespace(attn_dropout=0.1,
+batch_size=16,
+blr=0.0001,
+buffer_size=0,
+cached_path='',
+cfg=3.0,
+cfg_schedule='linear',
+class_num=1000,
+data_path='./prompts',
+device='cuda',
+diffloss_d=3,
+diffloss_w=1024,
+diffusion_batch_mul=1,
+dist_backend='nccl',
+dist_on_itp=False,
+dist_url='env://',
+distributed=True,
+ema=False,
+ema_rate=0.999,
+epochs=400,
+eval_bsz=8,
+eval_freq=2,
+evaluate=True,
+gpu=0,
+grad_clip=1.0,
+img_size=256,
+label_drop_prob=0.1,
+local_rank=-1,
+log_dir='./t2i_evaluation_results/far_huge_steps50_simple',
+loss_weight=False,
+lr=None,
+lr_schedule='constant',
+mask_ratio_min=0.7,
+min_lr=0.0,
+model='far_t2i',
+num_gpus_permachine=2,
+num_iter=10,
+num_machine=1,
+num_sampling_steps='50',
+num_workers=5,
+online_eval=False,
+output_dir='./t2i_evaluation_results/far_huge_steps50_simple',
+patch_size=1,
+pin_mem=True,
+proj_dropout=0.1,
+rank=0,
+resume='pretrained_models/far/far_huge',
+save_last_freq=5,
+seed=1,
+speed_test=True,
+speed_test_steps=10,
+start_epoch=0,
+temperature=1.0,
+text_model_path='pretrained/Qwen2-VL-1.5B-Instruct',
+use_cached=False,
+use_unictrol=False,
+vae_embed_dim=16,
+vae_path='pretrained/vae/kl16.ckpt',
+vae_stride=16,
+warmup_epochs=100,
+weight_decay=0.02,
+world_size=1)
+[14:13:23.627862] Working with z of shape (1, 16, 16, 16) = 4096 dimensions.
+[14:13:29.748765] Loading pre-trained KL-VAE
+[14:13:29.748847] Missing keys:
+[14:13:29.748861] []
+[14:13:29.748873] Unexpected keys:
+[14:13:29.748884] []
+[14:13:29.748896] Restored from pretrained/vae/kl16.ckpt
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:29<00:00, 14.65s/it]
+[14:14:14.748855] Model = FAR_T2I(
+  (context_embed): Linear(in_features=1536, out_features=1024, bias=True)
+  (z_proj): Linear(in_features=16, out_features=1024, bias=True)
+  (z_proj_ln): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+  (encoder_blocks): ModuleList(
+    (0-15): 16 x BasicTransformerBlock(
+      (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=False)
+      (attn1): Attention(
+        (to_q): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_k): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_v): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_out): ModuleList(
+          (0): Linear(in_features=1024, out_features=1024, bias=True)
+          (1): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=False)
+      (attn2): Attention(
+        (to_q): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_k): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_v): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_out): ModuleList(
+          (0): Linear(in_features=1024, out_features=1024, bias=True)
+          (1): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (norm3): LayerNorm((1024,), eps=1e-05, elementwise_affine=False)
+      (ff): FeedForward(
+        (net): ModuleList(
+          (0): GELU(
+            (proj): Linear(in_features=1024, out_features=4096, bias=True)
+          )
+          (1): Dropout(p=0.0, inplace=False)
+          (2): Linear(in_features=4096, out_features=1024, bias=True)
+        )
+      )
+    )
+  )
+  (encoder_norm): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+  (decoder_embed): Linear(in_features=1024, out_features=1024, bias=True)
+  (decoder_blocks): ModuleList(
+    (0-15): 16 x BasicTransformerBlock(
+      (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=False)
+      (attn1): Attention(
+        (to_q): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_k): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_v): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_out): ModuleList(
+          (0): Linear(in_features=1024, out_features=1024, bias=True)
+          (1): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=False)
+      (attn2): Attention(
+        (to_q): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_k): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_v): Linear(in_features=1024, out_features=1024, bias=True)
+        (to_out): ModuleList(
+          (0): Linear(in_features=1024, out_features=1024, bias=True)
+          (1): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (norm3): LayerNorm((1024,), eps=1e-05, elementwise_affine=False)
+      (ff): FeedForward(
+        (net): ModuleList(
+          (0): GELU(
+            (proj): Linear(in_features=1024, out_features=4096, bias=True)
+          )
+          (1): Dropout(p=0.0, inplace=False)
+          (2): Linear(in_features=4096, out_features=1024, bias=True)
+        )
+      )
+    )
+  )
+  (decoder_norm): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+  (diffloss): DiffLoss(
+    (net): SimpleMLPAdaLN(
+      (time_embed): TimestepEmbedder(
+        (mlp): Sequential(
+          (0): Linear(in_features=256, out_features=1024, bias=True)
+          (1): SiLU()
+          (2): Linear(in_features=1024, out_features=1024, bias=True)
+        )
+      )
+      (cond_embed): Linear(in_features=1024, out_features=1024, bias=True)
+      (index_cond_embed): Linear(in_features=1, out_features=1024, bias=True)
+      (input_proj): Linear(in_features=16, out_features=1024, bias=True)
+      (res_blocks): ModuleList(
+        (0-2): 3 x ResBlock(
+          (in_ln): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+          (mlp): Sequential(
+            (0): Linear(in_features=1024, out_features=1024, bias=True)
+            (1): SiLU()
+            (2): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (adaLN_modulation): Sequential(
+            (0): SiLU()
+            (1): Linear(in_features=1024, out_features=3072, bias=True)
+          )
+        )
+      )
+      (final_layer): FinalLayer(
+        (norm_final): LayerNorm((1024,), eps=1e-06, elementwise_affine=False)
+        (linear): Linear(in_features=1024, out_features=32, bias=True)
+        (adaLN_modulation): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=1024, out_features=2048, bias=True)
+        )
+      )
+    )
+  )
+)
+[14:14:14.752695] Number of trainable parameters: 561.30256M
+[14:14:16.202345] base lr: 1.00e-04
+[14:14:16.202393] actual lr: 6.25e-06
+[14:14:16.202405] effective batch size: 16
+[rank0]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+[14:14:16.272126] AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.95)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 6.25e-06
+    maximize: False
+    weight_decay: 0.0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.95)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 6.25e-06
+    maximize: False
+    weight_decay: 0.02
+)
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+    main(args)
+  File "main_far_t2i.py", line 267, in main
+    model_without_ddp.load_state_dict(checkpoint['model'])
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for FAR_T2I:
+        Missing key(s) in state_dict: "context_embed.weight", "context_embed.bias", "encoder_blocks.0.attn1.to_q.weight", "encoder_blocks.0.attn1.to_q.bias", "encoder_blocks.0.attn1.to_k.weight", "encoder_blocks.0.attn1.to_k.bias", "encoder_blocks.0.attn1.to_v.weight", "encoder_blocks.0.attn1.to_v.bias", "encoder_blocks.0.attn1.to_out.0.weight", "encoder_blocks.0.attn1.to_out.0.bias", "encoder_blocks.0.attn2.to_q.weight", "encoder_blocks.0.attn2.to_q.bias", "encoder_blocks.0.attn2.to_k.weight", "encoder_blocks.0.attn2.to_k.bias", "encoder_blocks.0.attn2.to_v.weight", "encoder_blocks.0.attn2.to_v.bias", "encoder_blocks.0.attn2.to_out.0.weight", "encoder_blocks.0.attn2.to_out.0.bias", "encoder_blocks.0.ff.net.0.proj.weight", "encoder_blocks.0.ff.net.0.proj.bias", "encoder_blocks.0.ff.net.2.weight", "encoder_blocks.0.ff.net.2.bias", "encoder_blocks.1.attn1.to_q.weight", "encoder_blocks.1.attn1.to_q.bias", "encoder_blocks.1.attn1.to_k.weight", "encoder_blocks.1.attn1.to_k.bias", "encoder_blocks.1.attn1.to_v.weight", "encoder_blocks.1.attn1.to_v.bias", "encoder_blocks.1.attn1.to_out.0.weight", "encoder_blocks.1.attn1.to_out.0.bias", "encoder_blocks.1.attn2.to_q.weight", "encoder_blocks.1.attn2.to_q.bias", "encoder_blocks.1.attn2.to_k.weight", "encoder_blocks.1.attn2.to_k.bias", "encoder_blocks.1.attn2.to_v.weight", "encoder_blocks.1.attn2.to_v.bias", "encoder_blocks.1.attn2.to_out.0.weight", "encoder_blocks.1.attn2.to_out.0.bias", "encoder_blocks.1.ff.net.0.proj.weight", "encoder_blocks.1.ff.net.0.proj.bias", "encoder_blocks.1.ff.net.2.weight", "encoder_blocks.1.ff.net.2.bias", "encoder_blocks.2.attn1.to_q.weight", "encoder_blocks.2.attn1.to_q.bias", "encoder_blocks.2.attn1.to_k.weight", "encoder_blocks.2.attn1.to_k.bias", "encoder_blocks.2.attn1.to_v.weight", "encoder_blocks.2.attn1.to_v.bias", "encoder_blocks.2.attn1.to_out.0.weight", "encoder_blocks.2.attn1.to_out.0.bias", "encoder_blocks.2.attn2.to_q.weight", "encoder_blocks.2.attn2.to_q.bias", "encoder_blocks.2.attn2.to_k.weight", "encoder_blocks.2.attn2.to_k.bias", "encoder_blocks.2.attn2.to_v.weight", "encoder_blocks.2.attn2.to_v.bias", "encoder_blocks.2.attn2.to_out.0.weight", "encoder_blocks.2.attn2.to_out.0.bias", "encoder_blocks.2.ff.net.0.proj.weight", "encoder_blocks.2.ff.net.0.proj.bias", "encoder_blocks.2.ff.net.2.weight", "encoder_blocks.2.ff.net.2.bias", "encoder_blocks.3.attn1.to_q.weight", "encoder_blocks.3.attn1.to_q.bias", "encoder_blocks.3.attn1.to_k.weight", "encoder_blocks.3.attn1.to_k.bias", "encoder_blocks.3.attn1.to_v.weight", "encoder_blocks.3.attn1.to_v.bias", "encoder_blocks.3.attn1.to_out.0.weight", "encoder_blocks.3.attn1.to_out.0.bias", "encoder_blocks.3.attn2.to_q.weight", "encoder_blocks.3.attn2.to_q.bias", "encoder_blocks.3.attn2.to_k.weight", "encoder_blocks.3.attn2.to_k.bias", "encoder_blocks.3.attn2.to_v.weight", "encoder_blocks.3.attn2.to_v.bias", "encoder_blocks.3.attn2.to_out.0.weight", "encoder_blocks.3.attn2.to_out.0.bias", "encoder_blocks.3.ff.net.0.proj.weight", "encoder_blocks.3.ff.net.0.proj.bias", "encoder_blocks.3.ff.net.2.weight", "encoder_blocks.3.ff.net.2.bias", "encoder_blocks.4.attn1.to_q.weight", "encoder_blocks.4.attn1.to_q.bias", "encoder_blocks.4.attn1.to_k.weight", "encoder_blocks.4.attn1.to_k.bias", "encoder_blocks.4.attn1.to_v.weight", "encoder_blocks.4.attn1.to_v.bias", "encoder_blocks.4.attn1.to_out.0.weight", "encoder_blocks.4.attn1.to_out.0.bias", "encoder_blocks.4.attn2.to_q.weight", "encoder_blocks.4.attn2.to_q.bias", "encoder_blocks.4.attn2.to_k.weight", "encoder_blocks.4.attn2.to_k.bias", "encoder_blocks.4.attn2.to_v.weight", "encoder_blocks.4.attn2.to_v.bias", "encoder_blocks.4.attn2.to_out.0.weight", "encoder_blocks.4.attn2.to_out.0.bias", "encoder_blocks.4.ff.net.0.proj.weight", "encoder_blocks.4.ff.net.0.proj.bias", "encoder_blocks.4.ff.net.2.weight", "encoder_blocks.4.ff.net.2.bias", "encoder_blocks.5.attn1.to_q.weight", "encoder_blocks.5.attn1.to_q.bias", "encoder_blocks.5.attn1.to_k.weight", "encoder_blocks.5.attn1.to_k.bias", "encoder_blocks.5.attn1.to_v.weight", "encoder_blocks.5.attn1.to_v.bias", "encoder_blocks.5.attn1.to_out.0.weight", "encoder_blocks.5.attn1.to_out.0.bias", "encoder_blocks.5.attn2.to_q.weight", "encoder_blocks.5.attn2.to_q.bias", "encoder_blocks.5.attn2.to_k.weight", "encoder_blocks.5.attn2.to_k.bias", "encoder_blocks.5.attn2.to_v.weight", "encoder_blocks.5.attn2.to_v.bias", "encoder_blocks.5.attn2.to_out.0.weight", "encoder_blocks.5.attn2.to_out.0.bias", "encoder_blocks.5.ff.net.0.proj.weight", "encoder_blocks.5.ff.net.0.proj.bias", "encoder_blocks.5.ff.net.2.weight", "encoder_blocks.5.ff.net.2.bias", "encoder_blocks.6.attn1.to_q.weight", "encoder_blocks.6.attn1.to_q.bias", "encoder_blocks.6.attn1.to_k.weight", "encoder_blocks.6.attn1.to_k.bias", "encoder_blocks.6.attn1.to_v.weight", "encoder_blocks.6.attn1.to_v.bias", "encoder_blocks.6.attn1.to_out.0.weight", "encoder_blocks.6.attn1.to_out.0.bias", "encoder_blocks.6.attn2.to_q.weight", "encoder_blocks.6.attn2.to_q.bias", "encoder_blocks.6.attn2.to_k.weight", "encoder_blocks.6.attn2.to_k.bias", "encoder_blocks.6.attn2.to_v.weight", "encoder_blocks.6.attn2.to_v.bias", "encoder_blocks.6.attn2.to_out.0.weight", "encoder_blocks.6.attn2.to_out.0.bias", "encoder_blocks.6.ff.net.0.proj.weight", "encoder_blocks.6.ff.net.0.proj.bias", "encoder_blocks.6.ff.net.2.weight", "encoder_blocks.6.ff.net.2.bias", "encoder_blocks.7.attn1.to_q.weight", "encoder_blocks.7.attn1.to_q.bias", "encoder_blocks.7.attn1.to_k.weight", "encoder_blocks.7.attn1.to_k.bias", "encoder_blocks.7.attn1.to_v.weight", "encoder_blocks.7.attn1.to_v.bias", "encoder_blocks.7.attn1.to_out.0.weight", "encoder_blocks.7.attn1.to_out.0.bias", "encoder_blocks.7.attn2.to_q.weight", "encoder_blocks.7.attn2.to_q.bias", "encoder_blocks.7.attn2.to_k.weight", "encoder_blocks.7.attn2.to_k.bias", "encoder_blocks.7.attn2.to_v.weight", "encoder_blocks.7.attn2.to_v.bias", "encoder_blocks.7.attn2.to_out.0.weight", "encoder_blocks.7.attn2.to_out.0.bias", "encoder_blocks.7.ff.net.0.proj.weight", "encoder_blocks.7.ff.net.0.proj.bias", "encoder_blocks.7.ff.net.2.weight", "encoder_blocks.7.ff.net.2.bias", "encoder_blocks.8.attn1.to_q.weight", "encoder_blocks.8.attn1.to_q.bias", "encoder_blocks.8.attn1.to_k.weight", "encoder_blocks.8.attn1.to_k.bias", "encoder_blocks.8.attn1.to_v.weight", "encoder_blocks.8.attn1.to_v.bias", "encoder_blocks.8.attn1.to_out.0.weight", "encoder_blocks.8.attn1.to_out.0.bias", "encoder_blocks.8.attn2.to_q.weight", "encoder_blocks.8.attn2.to_q.bias", "encoder_blocks.8.attn2.to_k.weight", "encoder_blocks.8.attn2.to_k.bias", "encoder_blocks.8.attn2.to_v.weight", "encoder_blocks.8.attn2.to_v.bias", "encoder_blocks.8.attn2.to_out.0.weight", "encoder_blocks.8.attn2.to_out.0.bias", "encoder_blocks.8.ff.net.0.proj.weight", "encoder_blocks.8.ff.net.0.proj.bias", "encoder_blocks.8.ff.net.2.weight", "encoder_blocks.8.ff.net.2.bias", "encoder_blocks.9.attn1.to_q.weight", "encoder_blocks.9.attn1.to_q.bias", "encoder_blocks.9.attn1.to_k.weight", "encoder_blocks.9.attn1.to_k.bias", "encoder_blocks.9.attn1.to_v.weight", "encoder_blocks.9.attn1.to_v.bias", "encoder_blocks.9.attn1.to_out.0.weight", "encoder_blocks.9.attn1.to_out.0.bias", "encoder_blocks.9.attn2.to_q.weight", "encoder_blocks.9.attn2.to_q.bias", "encoder_blocks.9.attn2.to_k.weight", "encoder_blocks.9.attn2.to_k.bias", "encoder_blocks.9.attn2.to_v.weight", "encoder_blocks.9.attn2.to_v.bias", "encoder_blocks.9.attn2.to_out.0.weight", "encoder_blocks.9.attn2.to_out.0.bias", "encoder_blocks.9.ff.net.0.proj.weight", "encoder_blocks.9.ff.net.0.proj.bias", "encoder_blocks.9.ff.net.2.weight", "encoder_blocks.9.ff.net.2.bias", "encoder_blocks.10.attn1.to_q.weight", "encoder_blocks.10.attn1.to_q.bias", "encoder_blocks.10.attn1.to_k.weight", "encoder_blocks.10.attn1.to_k.bias", "encoder_blocks.10.attn1.to_v.weight", "encoder_blocks.10.attn1.to_v.bias", "encoder_blocks.10.attn1.to_out.0.weight", "encoder_blocks.10.attn1.to_out.0.bias", "encoder_blocks.10.attn2.to_q.weight", "encoder_blocks.10.attn2.to_q.bias", "encoder_blocks.10.attn2.to_k.weight", "encoder_blocks.10.attn2.to_k.bias", "encoder_blocks.10.attn2.to_v.weight", "encoder_blocks.10.attn2.to_v.bias", "encoder_blocks.10.attn2.to_out.0.weight", "encoder_blocks.10.attn2.to_out.0.bias", "encoder_blocks.10.ff.net.0.proj.weight", "encoder_blocks.10.ff.net.0.proj.bias", "encoder_blocks.10.ff.net.2.weight", "encoder_blocks.10.ff.net.2.bias", "encoder_blocks.11.attn1.to_q.weight", "encoder_blocks.11.attn1.to_q.bias", "encoder_blocks.11.attn1.to_k.weight", "encoder_blocks.11.attn1.to_k.bias", "encoder_blocks.11.attn1.to_v.weight", "encoder_blocks.11.attn1.to_v.bias", "encoder_blocks.11.attn1.to_out.0.weight", "encoder_blocks.11.attn1.to_out.0.bias", "encoder_blocks.11.attn2.to_q.weight", "encoder_blocks.11.attn2.to_q.bias", "encoder_blocks.11.attn2.to_k.weight", "encoder_blocks.11.attn2.to_k.bias", "encoder_blocks.11.attn2.to_v.weight", "encoder_blocks.11.attn2.to_v.bias", "encoder_blocks.11.attn2.to_out.0.weight", "encoder_blocks.11.attn2.to_out.0.bias", "encoder_blocks.11.ff.net.0.proj.weight", "encoder_blocks.11.ff.net.0.proj.bias", "encoder_blocks.11.ff.net.2.weight", "encoder_blocks.11.ff.net.2.bias", "encoder_blocks.12.attn1.to_q.weight", "encoder_blocks.12.attn1.to_q.bias", "encoder_blocks.12.attn1.to_k.weight", "encoder_blocks.12.attn1.to_k.bias", "encoder_blocks.12.attn1.to_v.weight", "encoder_blocks.12.attn1.to_v.bias", "encoder_blocks.12.attn1.to_out.0.weight", "encoder_blocks.12.attn1.to_out.0.bias", "encoder_blocks.12.attn2.to_q.weight", "encoder_blocks.12.attn2.to_q.bias", "encoder_blocks.12.attn2.to_k.weight", "encoder_blocks.12.attn2.to_k.bias", "encoder_blocks.12.attn2.to_v.weight", "encoder_blocks.12.attn2.to_v.bias", "encoder_blocks.12.attn2.to_out.0.weight", "encoder_blocks.12.attn2.to_out.0.bias", "encoder_blocks.12.ff.net.0.proj.weight", "encoder_blocks.12.ff.net.0.proj.bias", "encoder_blocks.12.ff.net.2.weight", "encoder_blocks.12.ff.net.2.bias", "encoder_blocks.13.attn1.to_q.weight", "encoder_blocks.13.attn1.to_q.bias", "encoder_blocks.13.attn1.to_k.weight", "encoder_blocks.13.attn1.to_k.bias", "encoder_blocks.13.attn1.to_v.weight", "encoder_blocks.13.attn1.to_v.bias", "encoder_blocks.13.attn1.to_out.0.weight", "encoder_blocks.13.attn1.to_out.0.bias", "encoder_blocks.13.attn2.to_q.weight", "encoder_blocks.13.attn2.to_q.bias", "encoder_blocks.13.attn2.to_k.weight", "encoder_blocks.13.attn2.to_k.bias", "encoder_blocks.13.attn2.to_v.weight", "encoder_blocks.13.attn2.to_v.bias", "encoder_blocks.13.attn2.to_out.0.weight", "encoder_blocks.13.attn2.to_out.0.bias", "encoder_blocks.13.ff.net.0.proj.weight", "encoder_blocks.13.ff.net.0.proj.bias", "encoder_blocks.13.ff.net.2.weight", "encoder_blocks.13.ff.net.2.bias", "encoder_blocks.14.attn1.to_q.weight", "encoder_blocks.14.attn1.to_q.bias", "encoder_blocks.14.attn1.to_k.weight", "encoder_blocks.14.attn1.to_k.bias", "encoder_blocks.14.attn1.to_v.weight", "encoder_blocks.14.attn1.to_v.bias", "encoder_blocks.14.attn1.to_out.0.weight", "encoder_blocks.14.attn1.to_out.0.bias", "encoder_blocks.14.attn2.to_q.weight", "encoder_blocks.14.attn2.to_q.bias", "encoder_blocks.14.attn2.to_k.weight", "encoder_blocks.14.attn2.to_k.bias", "encoder_blocks.14.attn2.to_v.weight", "encoder_blocks.14.attn2.to_v.bias", "encoder_blocks.14.attn2.to_out.0.weight", "encoder_blocks.14.attn2.to_out.0.bias", "encoder_blocks.14.ff.net.0.proj.weight", "encoder_blocks.14.ff.net.0.proj.bias", "encoder_blocks.14.ff.net.2.weight", "encoder_blocks.14.ff.net.2.bias", "encoder_blocks.15.attn1.to_q.weight", "encoder_blocks.15.attn1.to_q.bias", "encoder_blocks.15.attn1.to_k.weight", "encoder_blocks.15.attn1.to_k.bias", "encoder_blocks.15.attn1.to_v.weight", "encoder_blocks.15.attn1.to_v.bias", "encoder_blocks.15.attn1.to_out.0.weight", "encoder_blocks.15.attn1.to_out.0.bias", "encoder_blocks.15.attn2.to_q.weight", "encoder_blocks.15.attn2.to_q.bias", "encoder_blocks.15.attn2.to_k.weight", "encoder_blocks.15.attn2.to_k.bias", "encoder_blocks.15.attn2.to_v.weight", "encoder_blocks.15.attn2.to_v.bias", "encoder_blocks.15.attn2.to_out.0.weight", "encoder_blocks.15.attn2.to_out.0.bias", "encoder_blocks.15.ff.net.0.proj.weight", "encoder_blocks.15.ff.net.0.proj.bias", "encoder_blocks.15.ff.net.2.weight", "encoder_blocks.15.ff.net.2.bias", "decoder_blocks.0.attn1.to_q.weight", "decoder_blocks.0.attn1.to_q.bias", "decoder_blocks.0.attn1.to_k.weight", "decoder_blocks.0.attn1.to_k.bias", "decoder_blocks.0.attn1.to_v.weight", "decoder_blocks.0.attn1.to_v.bias", "decoder_blocks.0.attn1.to_out.0.weight", "decoder_blocks.0.attn1.to_out.0.bias", "decoder_blocks.0.attn2.to_q.weight", "decoder_blocks.0.attn2.to_q.bias", "decoder_blocks.0.attn2.to_k.weight", "decoder_blocks.0.attn2.to_k.bias", "decoder_blocks.0.attn2.to_v.weight", "decoder_blocks.0.attn2.to_v.bias", "decoder_blocks.0.attn2.to_out.0.weight", "decoder_blocks.0.attn2.to_out.0.bias", "decoder_blocks.0.ff.net.0.proj.weight", "decoder_blocks.0.ff.net.0.proj.bias", "decoder_blocks.0.ff.net.2.weight", "decoder_blocks.0.ff.net.2.bias", "decoder_blocks.1.attn1.to_q.weight", "decoder_blocks.1.attn1.to_q.bias", "decoder_blocks.1.attn1.to_k.weight", "decoder_blocks.1.attn1.to_k.bias", "decoder_blocks.1.attn1.to_v.weight", "decoder_blocks.1.attn1.to_v.bias", "decoder_blocks.1.attn1.to_out.0.weight", "decoder_blocks.1.attn1.to_out.0.bias", "decoder_blocks.1.attn2.to_q.weight", "decoder_blocks.1.attn2.to_q.bias", "decoder_blocks.1.attn2.to_k.weight", "decoder_blocks.1.attn2.to_k.bias", "decoder_blocks.1.attn2.to_v.weight", "decoder_blocks.1.attn2.to_v.bias", "decoder_blocks.1.attn2.to_out.0.weight", "decoder_blocks.1.attn2.to_out.0.bias", "decoder_blocks.1.ff.net.0.proj.weight", "decoder_blocks.1.ff.net.0.proj.bias", "decoder_blocks.1.ff.net.2.weight", "decoder_blocks.1.ff.net.2.bias", "decoder_blocks.2.attn1.to_q.weight", "decoder_blocks.2.attn1.to_q.bias", "decoder_blocks.2.attn1.to_k.weight", "decoder_blocks.2.attn1.to_k.bias", "decoder_blocks.2.attn1.to_v.weight", "decoder_blocks.2.attn1.to_v.bias", "decoder_blocks.2.attn1.to_out.0.weight", "decoder_blocks.2.attn1.to_out.0.bias", "decoder_blocks.2.attn2.to_q.weight", "decoder_blocks.2.attn2.to_q.bias", "decoder_blocks.2.attn2.to_k.weight", "decoder_blocks.2.attn2.to_k.bias", "decoder_blocks.2.attn2.to_v.weight", "decoder_blocks.2.attn2.to_v.bias", "decoder_blocks.2.attn2.to_out.0.weight", "decoder_blocks.2.attn2.to_out.0.bias", "decoder_blocks.2.ff.net.0.proj.weight", "decoder_blocks.2.ff.net.0.proj.bias", "decoder_blocks.2.ff.net.2.weight", "decoder_blocks.2.ff.net.2.bias", "decoder_blocks.3.attn1.to_q.weight", "decoder_blocks.3.attn1.to_q.bias", "decoder_blocks.3.attn1.to_k.weight", "decoder_blocks.3.attn1.to_k.bias", "decoder_blocks.3.attn1.to_v.weight", "decoder_blocks.3.attn1.to_v.bias", "decoder_blocks.3.attn1.to_out.0.weight", "decoder_blocks.3.attn1.to_out.0.bias", "decoder_blocks.3.attn2.to_q.weight", "decoder_blocks.3.attn2.to_q.bias", "decoder_blocks.3.attn2.to_k.weight", "decoder_blocks.3.attn2.to_k.bias", "decoder_blocks.3.attn2.to_v.weight", "decoder_blocks.3.attn2.to_v.bias", "decoder_blocks.3.attn2.to_out.0.weight", "decoder_blocks.3.attn2.to_out.0.bias", "decoder_blocks.3.ff.net.0.proj.weight", "decoder_blocks.3.ff.net.0.proj.bias", "decoder_blocks.3.ff.net.2.weight", "decoder_blocks.3.ff.net.2.bias", "decoder_blocks.4.attn1.to_q.weight", "decoder_blocks.4.attn1.to_q.bias", "decoder_blocks.4.attn1.to_k.weight", "decoder_blocks.4.attn1.to_k.bias", "decoder_blocks.4.attn1.to_v.weight", "decoder_blocks.4.attn1.to_v.bias", "decoder_blocks.4.attn1.to_out.0.weight", "decoder_blocks.4.attn1.to_out.0.bias", "decoder_blocks.4.attn2.to_q.weight", "decoder_blocks.4.attn2.to_q.bias", "decoder_blocks.4.attn2.to_k.weight", "decoder_blocks.4.attn2.to_k.bias", "decoder_blocks.4.attn2.to_v.weight", "decoder_blocks.4.attn2.to_v.bias", "decoder_blocks.4.attn2.to_out.0.weight", "decoder_blocks.4.attn2.to_out.0.bias", "decoder_blocks.4.ff.net.0.proj.weight", "decoder_blocks.4.ff.net.0.proj.bias", "decoder_blocks.4.ff.net.2.weight", "decoder_blocks.4.ff.net.2.bias", "decoder_blocks.5.attn1.to_q.weight", "decoder_blocks.5.attn1.to_q.bias", "decoder_blocks.5.attn1.to_k.weight", "decoder_blocks.5.attn1.to_k.bias", "decoder_blocks.5.attn1.to_v.weight", "decoder_blocks.5.attn1.to_v.bias", "decoder_blocks.5.attn1.to_out.0.weight", "decoder_blocks.5.attn1.to_out.0.bias", "decoder_blocks.5.attn2.to_q.weight", "decoder_blocks.5.attn2.to_q.bias", "decoder_blocks.5.attn2.to_k.weight", "decoder_blocks.5.attn2.to_k.bias", "decoder_blocks.5.attn2.to_v.weight", "decoder_blocks.5.attn2.to_v.bias", "decoder_blocks.5.attn2.to_out.0.weight", "decoder_blocks.5.attn2.to_out.0.bias", "decoder_blocks.5.ff.net.0.proj.weight", "decoder_blocks.5.ff.net.0.proj.bias", "decoder_blocks.5.ff.net.2.weight", "decoder_blocks.5.ff.net.2.bias", "decoder_blocks.6.attn1.to_q.weight", "decoder_blocks.6.attn1.to_q.bias", "decoder_blocks.6.attn1.to_k.weight", "decoder_blocks.6.attn1.to_k.bias", "decoder_blocks.6.attn1.to_v.weight", "decoder_blocks.6.attn1.to_v.bias", "decoder_blocks.6.attn1.to_out.0.weight", "decoder_blocks.6.attn1.to_out.0.bias", "decoder_blocks.6.attn2.to_q.weight", "decoder_blocks.6.attn2.to_q.bias", "decoder_blocks.6.attn2.to_k.weight", "decoder_blocks.6.attn2.to_k.bias", "decoder_blocks.6.attn2.to_v.weight", "decoder_blocks.6.attn2.to_v.bias", "decoder_blocks.6.attn2.to_out.0.weight", "decoder_blocks.6.attn2.to_out.0.bias", "decoder_blocks.6.ff.net.0.proj.weight", "decoder_blocks.6.ff.net.0.proj.bias", "decoder_blocks.6.ff.net.2.weight", "decoder_blocks.6.ff.net.2.bias", "decoder_blocks.7.attn1.to_q.weight", "decoder_blocks.7.attn1.to_q.bias", "decoder_blocks.7.attn1.to_k.weight", "decoder_blocks.7.attn1.to_k.bias", "decoder_blocks.7.attn1.to_v.weight", "decoder_blocks.7.attn1.to_v.bias", "decoder_blocks.7.attn1.to_out.0.weight", "decoder_blocks.7.attn1.to_out.0.bias", "decoder_blocks.7.attn2.to_q.weight", "decoder_blocks.7.attn2.to_q.bias", "decoder_blocks.7.attn2.to_k.weight", "decoder_blocks.7.attn2.to_k.bias", "decoder_blocks.7.attn2.to_v.weight", "decoder_blocks.7.attn2.to_v.bias", "decoder_blocks.7.attn2.to_out.0.weight", "decoder_blocks.7.attn2.to_out.0.bias", "decoder_blocks.7.ff.net.0.proj.weight", "decoder_blocks.7.ff.net.0.proj.bias", "decoder_blocks.7.ff.net.2.weight", "decoder_blocks.7.ff.net.2.bias", "decoder_blocks.8.attn1.to_q.weight", "decoder_blocks.8.attn1.to_q.bias", "decoder_blocks.8.attn1.to_k.weight", "decoder_blocks.8.attn1.to_k.bias", "decoder_blocks.8.attn1.to_v.weight", "decoder_blocks.8.attn1.to_v.bias", "decoder_blocks.8.attn1.to_out.0.weight", "decoder_blocks.8.attn1.to_out.0.bias", "decoder_blocks.8.attn2.to_q.weight", "decoder_blocks.8.attn2.to_q.bias", "decoder_blocks.8.attn2.to_k.weight", "decoder_blocks.8.attn2.to_k.bias", "decoder_blocks.8.attn2.to_v.weight", "decoder_blocks.8.attn2.to_v.bias", "decoder_blocks.8.attn2.to_out.0.weight", "decoder_blocks.8.attn2.to_out.0.bias", "decoder_blocks.8.ff.net.0.proj.weight", "decoder_blocks.8.ff.net.0.proj.bias", "decoder_blocks.8.ff.net.2.weight", "decoder_blocks.8.ff.net.2.bias", "decoder_blocks.9.attn1.to_q.weight", "decoder_blocks.9.attn1.to_q.bias", "decoder_blocks.9.attn1.to_k.weight", "decoder_blocks.9.attn1.to_k.bias", "decoder_blocks.9.attn1.to_v.weight", "decoder_blocks.9.attn1.to_v.bias", "decoder_blocks.9.attn1.to_out.0.weight", "decoder_blocks.9.attn1.to_out.0.bias", "decoder_blocks.9.attn2.to_q.weight", "decoder_blocks.9.attn2.to_q.bias", "decoder_blocks.9.attn2.to_k.weight", "decoder_blocks.9.attn2.to_k.bias", "decoder_blocks.9.attn2.to_v.weight", "decoder_blocks.9.attn2.to_v.bias", "decoder_blocks.9.attn2.to_out.0.weight", "decoder_blocks.9.attn2.to_out.0.bias", "decoder_blocks.9.ff.net.0.proj.weight", "decoder_blocks.9.ff.net.0.proj.bias", "decoder_blocks.9.ff.net.2.weight", "decoder_blocks.9.ff.net.2.bias", "decoder_blocks.10.attn1.to_q.weight", "decoder_blocks.10.attn1.to_q.bias", "decoder_blocks.10.attn1.to_k.weight", "decoder_blocks.10.attn1.to_k.bias", "decoder_blocks.10.attn1.to_v.weight", "decoder_blocks.10.attn1.to_v.bias", "decoder_blocks.10.attn1.to_out.0.weight", "decoder_blocks.10.attn1.to_out.0.bias", "decoder_blocks.10.attn2.to_q.weight", "decoder_blocks.10.attn2.to_q.bias", "decoder_blocks.10.attn2.to_k.weight", "decoder_blocks.10.attn2.to_k.bias", "decoder_blocks.10.attn2.to_v.weight", "decoder_blocks.10.attn2.to_v.bias", "decoder_blocks.10.attn2.to_out.0.weight", "decoder_blocks.10.attn2.to_out.0.bias", "decoder_blocks.10.ff.net.0.proj.weight", "decoder_blocks.10.ff.net.0.proj.bias", "decoder_blocks.10.ff.net.2.weight", "decoder_blocks.10.ff.net.2.bias", "decoder_blocks.11.attn1.to_q.weight", "decoder_blocks.11.attn1.to_q.bias", "decoder_blocks.11.attn1.to_k.weight", "decoder_blocks.11.attn1.to_k.bias", "decoder_blocks.11.attn1.to_v.weight", "decoder_blocks.11.attn1.to_v.bias", "decoder_blocks.11.attn1.to_out.0.weight", "decoder_blocks.11.attn1.to_out.0.bias", "decoder_blocks.11.attn2.to_q.weight", "decoder_blocks.11.attn2.to_q.bias", "decoder_blocks.11.attn2.to_k.weight", "decoder_blocks.11.attn2.to_k.bias", "decoder_blocks.11.attn2.to_v.weight", "decoder_blocks.11.attn2.to_v.bias", "decoder_blocks.11.attn2.to_out.0.weight", "decoder_blocks.11.attn2.to_out.0.bias", "decoder_blocks.11.ff.net.0.proj.weight", "decoder_blocks.11.ff.net.0.proj.bias", "decoder_blocks.11.ff.net.2.weight", "decoder_blocks.11.ff.net.2.bias", "decoder_blocks.12.attn1.to_q.weight", "decoder_blocks.12.attn1.to_q.bias", "decoder_blocks.12.attn1.to_k.weight", "decoder_blocks.12.attn1.to_k.bias", "decoder_blocks.12.attn1.to_v.weight", "decoder_blocks.12.attn1.to_v.bias", "decoder_blocks.12.attn1.to_out.0.weight", "decoder_blocks.12.attn1.to_out.0.bias", "decoder_blocks.12.attn2.to_q.weight", "decoder_blocks.12.attn2.to_q.bias", "decoder_blocks.12.attn2.to_k.weight", "decoder_blocks.12.attn2.to_k.bias", "decoder_blocks.12.attn2.to_v.weight", "decoder_blocks.12.attn2.to_v.bias", "decoder_blocks.12.attn2.to_out.0.weight", "decoder_blocks.12.attn2.to_out.0.bias", "decoder_blocks.12.ff.net.0.proj.weight", "decoder_blocks.12.ff.net.0.proj.bias", "decoder_blocks.12.ff.net.2.weight", "decoder_blocks.12.ff.net.2.bias", "decoder_blocks.13.attn1.to_q.weight", "decoder_blocks.13.attn1.to_q.bias", "decoder_blocks.13.attn1.to_k.weight", "decoder_blocks.13.attn1.to_k.bias", "decoder_blocks.13.attn1.to_v.weight", "decoder_blocks.13.attn1.to_v.bias", "decoder_blocks.13.attn1.to_out.0.weight", "decoder_blocks.13.attn1.to_out.0.bias", "decoder_blocks.13.attn2.to_q.weight", "decoder_blocks.13.attn2.to_q.bias", "decoder_blocks.13.attn2.to_k.weight", "decoder_blocks.13.attn2.to_k.bias", "decoder_blocks.13.attn2.to_v.weight", "decoder_blocks.13.attn2.to_v.bias", "decoder_blocks.13.attn2.to_out.0.weight", "decoder_blocks.13.attn2.to_out.0.bias", "decoder_blocks.13.ff.net.0.proj.weight", "decoder_blocks.13.ff.net.0.proj.bias", "decoder_blocks.13.ff.net.2.weight", "decoder_blocks.13.ff.net.2.bias", "decoder_blocks.14.attn1.to_q.weight", "decoder_blocks.14.attn1.to_q.bias", "decoder_blocks.14.attn1.to_k.weight", "decoder_blocks.14.attn1.to_k.bias", "decoder_blocks.14.attn1.to_v.weight", "decoder_blocks.14.attn1.to_v.bias", "decoder_blocks.14.attn1.to_out.0.weight", "decoder_blocks.14.attn1.to_out.0.bias", "decoder_blocks.14.attn2.to_q.weight", "decoder_blocks.14.attn2.to_q.bias", "decoder_blocks.14.attn2.to_k.weight", "decoder_blocks.14.attn2.to_k.bias", "decoder_blocks.14.attn2.to_v.weight", "decoder_blocks.14.attn2.to_v.bias", "decoder_blocks.14.attn2.to_out.0.weight", "decoder_blocks.14.attn2.to_out.0.bias", "decoder_blocks.14.ff.net.0.proj.weight", "decoder_blocks.14.ff.net.0.proj.bias", "decoder_blocks.14.ff.net.2.weight", "decoder_blocks.14.ff.net.2.bias", "decoder_blocks.15.attn1.to_q.weight", "decoder_blocks.15.attn1.to_q.bias", "decoder_blocks.15.attn1.to_k.weight", "decoder_blocks.15.attn1.to_k.bias", "decoder_blocks.15.attn1.to_v.weight", "decoder_blocks.15.attn1.to_v.bias", "decoder_blocks.15.attn1.to_out.0.weight", "decoder_blocks.15.attn1.to_out.0.bias", "decoder_blocks.15.attn2.to_q.weight", "decoder_blocks.15.attn2.to_q.bias", "decoder_blocks.15.attn2.to_k.weight", "decoder_blocks.15.attn2.to_k.bias", "decoder_blocks.15.attn2.to_v.weight", "decoder_blocks.15.attn2.to_v.bias", "decoder_blocks.15.attn2.to_out.0.weight", "decoder_blocks.15.attn2.to_out.0.bias", "decoder_blocks.15.ff.net.0.proj.weight", "decoder_blocks.15.ff.net.0.proj.bias", "decoder_blocks.15.ff.net.2.weight", "decoder_blocks.15.ff.net.2.bias". 
+        Unexpected key(s) in state_dict: "class_emb.weight", "encoder_blocks.16.norm1.weight", "encoder_blocks.16.norm1.bias", "encoder_blocks.16.attn.qkv.weight", "encoder_blocks.16.attn.qkv.bias", "encoder_blocks.16.attn.proj.weight", "encoder_blocks.16.attn.proj.bias", "encoder_blocks.16.norm2.weight", "encoder_blocks.16.norm2.bias", "encoder_blocks.16.mlp.fc1.weight", "encoder_blocks.16.mlp.fc1.bias", "encoder_blocks.16.mlp.fc2.weight", "encoder_blocks.16.mlp.fc2.bias", "encoder_blocks.17.norm1.weight", "encoder_blocks.17.norm1.bias", "encoder_blocks.17.attn.qkv.weight", "encoder_blocks.17.attn.qkv.bias", "encoder_blocks.17.attn.proj.weight", "encoder_blocks.17.attn.proj.bias", "encoder_blocks.17.norm2.weight", "encoder_blocks.17.norm2.bias", "encoder_blocks.17.mlp.fc1.weight", "encoder_blocks.17.mlp.fc1.bias", "encoder_blocks.17.mlp.fc2.weight", "encoder_blocks.17.mlp.fc2.bias", "encoder_blocks.18.norm1.weight", "encoder_blocks.18.norm1.bias", "encoder_blocks.18.attn.qkv.weight", "encoder_blocks.18.attn.qkv.bias", "encoder_blocks.18.attn.proj.weight", "encoder_blocks.18.attn.proj.bias", "encoder_blocks.18.norm2.weight", "encoder_blocks.18.norm2.bias", "encoder_blocks.18.mlp.fc1.weight", "encoder_blocks.18.mlp.fc1.bias", "encoder_blocks.18.mlp.fc2.weight", "encoder_blocks.18.mlp.fc2.bias", "encoder_blocks.19.norm1.weight", "encoder_blocks.19.norm1.bias", "encoder_blocks.19.attn.qkv.weight", "encoder_blocks.19.attn.qkv.bias", "encoder_blocks.19.attn.proj.weight", "encoder_blocks.19.attn.proj.bias", "encoder_blocks.19.norm2.weight", "encoder_blocks.19.norm2.bias", "encoder_blocks.19.mlp.fc1.weight", "encoder_blocks.19.mlp.fc1.bias", "encoder_blocks.19.mlp.fc2.weight", "encoder_blocks.19.mlp.fc2.bias", "encoder_blocks.0.attn.qkv.weight", "encoder_blocks.0.attn.qkv.bias", "encoder_blocks.0.attn.proj.weight", "encoder_blocks.0.attn.proj.bias", "encoder_blocks.0.mlp.fc1.weight", "encoder_blocks.0.mlp.fc1.bias", "encoder_blocks.0.mlp.fc2.weight", "encoder_blocks.0.mlp.fc2.bias", "encoder_blocks.0.norm1.weight", "encoder_blocks.0.norm1.bias", "encoder_blocks.0.norm2.weight", "encoder_blocks.0.norm2.bias", "encoder_blocks.1.attn.qkv.weight", "encoder_blocks.1.attn.qkv.bias", "encoder_blocks.1.attn.proj.weight", "encoder_blocks.1.attn.proj.bias", "encoder_blocks.1.mlp.fc1.weight", "encoder_blocks.1.mlp.fc1.bias", "encoder_blocks.1.mlp.fc2.weight", "encoder_blocks.1.mlp.fc2.bias", "encoder_blocks.1.norm1.weight", "encoder_blocks.1.norm1.bias", "encoder_blocks.1.norm2.weight", "encoder_blocks.1.norm2.bias", "encoder_blocks.2.attn.qkv.weight", "encoder_blocks.2.attn.qkv.bias", "encoder_blocks.2.attn.proj.weight", "encoder_blocks.2.attn.proj.bias", "encoder_blocks.2.mlp.fc1.weight", "encoder_blocks.2.mlp.fc1.bias", "encoder_blocks.2.mlp.fc2.weight", "encoder_blocks.2.mlp.fc2.bias", "encoder_blocks.2.norm1.weight", "encoder_blocks.2.norm1.bias", "encoder_blocks.2.norm2.weight", "encoder_blocks.2.norm2.bias", "encoder_blocks.3.attn.qkv.weight", "encoder_blocks.3.attn.qkv.bias", "encoder_blocks.3.attn.proj.weight", "encoder_blocks.3.attn.proj.bias", "encoder_blocks.3.mlp.fc1.weight", "encoder_blocks.3.mlp.fc1.bias", "encoder_blocks.3.mlp.fc2.weight", "encoder_blocks.3.mlp.fc2.bias", "encoder_blocks.3.norm1.weight", "encoder_blocks.3.norm1.bias", "encoder_blocks.3.norm2.weight", "encoder_blocks.3.norm2.bias", "encoder_blocks.4.attn.qkv.weight", "encoder_blocks.4.attn.qkv.bias", "encoder_blocks.4.attn.proj.weight", "encoder_blocks.4.attn.proj.bias", "encoder_blocks.4.mlp.fc1.weight", "encoder_blocks.4.mlp.fc1.bias", "encoder_blocks.4.mlp.fc2.weight", "encoder_blocks.4.mlp.fc2.bias", "encoder_blocks.4.norm1.weight", "encoder_blocks.4.norm1.bias", "encoder_blocks.4.norm2.weight", "encoder_blocks.4.norm2.bias", "encoder_blocks.5.attn.qkv.weight", "encoder_blocks.5.attn.qkv.bias", "encoder_blocks.5.attn.proj.weight", "encoder_blocks.5.attn.proj.bias", "encoder_blocks.5.mlp.fc1.weight", "encoder_blocks.5.mlp.fc1.bias", "encoder_blocks.5.mlp.fc2.weight", "encoder_blocks.5.mlp.fc2.bias", "encoder_blocks.5.norm1.weight", "encoder_blocks.5.norm1.bias", "encoder_blocks.5.norm2.weight", "encoder_blocks.5.norm2.bias", "encoder_blocks.6.attn.qkv.weight", "encoder_blocks.6.attn.qkv.bias", "encoder_blocks.6.attn.proj.weight", "encoder_blocks.6.attn.proj.bias", "encoder_blocks.6.mlp.fc1.weight", "encoder_blocks.6.mlp.fc1.bias", "encoder_blocks.6.mlp.fc2.weight", "encoder_blocks.6.mlp.fc2.bias", "encoder_blocks.6.norm1.weight", "encoder_blocks.6.norm1.bias", "encoder_blocks.6.norm2.weight", "encoder_blocks.6.norm2.bias", "encoder_blocks.7.attn.qkv.weight", "encoder_blocks.7.attn.qkv.bias", "encoder_blocks.7.attn.proj.weight", "encoder_blocks.7.attn.proj.bias", "encoder_blocks.7.mlp.fc1.weight", "encoder_blocks.7.mlp.fc1.bias", "encoder_blocks.7.mlp.fc2.weight", "encoder_blocks.7.mlp.fc2.bias", "encoder_blocks.7.norm1.weight", "encoder_blocks.7.norm1.bias", "encoder_blocks.7.norm2.weight", "encoder_blocks.7.norm2.bias", "encoder_blocks.8.attn.qkv.weight", "encoder_blocks.8.attn.qkv.bias", "encoder_blocks.8.attn.proj.weight", "encoder_blocks.8.attn.proj.bias", "encoder_blocks.8.mlp.fc1.weight", "encoder_blocks.8.mlp.fc1.bias", "encoder_blocks.8.mlp.fc2.weight", "encoder_blocks.8.mlp.fc2.bias", "encoder_blocks.8.norm1.weight", "encoder_blocks.8.norm1.bias", "encoder_blocks.8.norm2.weight", "encoder_blocks.8.norm2.bias", "encoder_blocks.9.attn.qkv.weight", "encoder_blocks.9.attn.qkv.bias", "encoder_blocks.9.attn.proj.weight", "encoder_blocks.9.attn.proj.bias", "encoder_blocks.9.mlp.fc1.weight", "encoder_blocks.9.mlp.fc1.bias", "encoder_blocks.9.mlp.fc2.weight", "encoder_blocks.9.mlp.fc2.bias", "encoder_blocks.9.norm1.weight", "encoder_blocks.9.norm1.bias", "encoder_blocks.9.norm2.weight", "encoder_blocks.9.norm2.bias", "encoder_blocks.10.attn.qkv.weight", "encoder_blocks.10.attn.qkv.bias", "encoder_blocks.10.attn.proj.weight", "encoder_blocks.10.attn.proj.bias", "encoder_blocks.10.mlp.fc1.weight", "encoder_blocks.10.mlp.fc1.bias", "encoder_blocks.10.mlp.fc2.weight", "encoder_blocks.10.mlp.fc2.bias", "encoder_blocks.10.norm1.weight", "encoder_blocks.10.norm1.bias", "encoder_blocks.10.norm2.weight", "encoder_blocks.10.norm2.bias", "encoder_blocks.11.attn.qkv.weight", "encoder_blocks.11.attn.qkv.bias", "encoder_blocks.11.attn.proj.weight", "encoder_blocks.11.attn.proj.bias", "encoder_blocks.11.mlp.fc1.weight", "encoder_blocks.11.mlp.fc1.bias", "encoder_blocks.11.mlp.fc2.weight", "encoder_blocks.11.mlp.fc2.bias", "encoder_blocks.11.norm1.weight", "encoder_blocks.11.norm1.bias", "encoder_blocks.11.norm2.weight", "encoder_blocks.11.norm2.bias", "encoder_blocks.12.attn.qkv.weight", "encoder_blocks.12.attn.qkv.bias", "encoder_blocks.12.attn.proj.weight", "encoder_blocks.12.attn.proj.bias", "encoder_blocks.12.mlp.fc1.weight", "encoder_blocks.12.mlp.fc1.bias", "encoder_blocks.12.mlp.fc2.weight", "encoder_blocks.12.mlp.fc2.bias", "encoder_blocks.12.norm1.weight", "encoder_blocks.12.norm1.bias", "encoder_blocks.12.norm2.weight", "encoder_blocks.12.norm2.bias", "encoder_blocks.13.attn.qkv.weight", "encoder_blocks.13.attn.qkv.bias", "encoder_blocks.13.attn.proj.weight", "encoder_blocks.13.attn.proj.bias", "encoder_blocks.13.mlp.fc1.weight", "encoder_blocks.13.mlp.fc1.bias", "encoder_blocks.13.mlp.fc2.weight", "encoder_blocks.13.mlp.fc2.bias", "encoder_blocks.13.norm1.weight", "encoder_blocks.13.norm1.bias", "encoder_blocks.13.norm2.weight", "encoder_blocks.13.norm2.bias", "encoder_blocks.14.attn.qkv.weight", "encoder_blocks.14.attn.qkv.bias", "encoder_blocks.14.attn.proj.weight", "encoder_blocks.14.attn.proj.bias", "encoder_blocks.14.mlp.fc1.weight", "encoder_blocks.14.mlp.fc1.bias", "encoder_blocks.14.mlp.fc2.weight", "encoder_blocks.14.mlp.fc2.bias", "encoder_blocks.14.norm1.weight", "encoder_blocks.14.norm1.bias", "encoder_blocks.14.norm2.weight", "encoder_blocks.14.norm2.bias", "encoder_blocks.15.attn.qkv.weight", "encoder_blocks.15.attn.qkv.bias", "encoder_blocks.15.attn.proj.weight", "encoder_blocks.15.attn.proj.bias", "encoder_blocks.15.mlp.fc1.weight", "encoder_blocks.15.mlp.fc1.bias", "encoder_blocks.15.mlp.fc2.weight", "encoder_blocks.15.mlp.fc2.bias", "encoder_blocks.15.norm1.weight", "encoder_blocks.15.norm1.bias", "encoder_blocks.15.norm2.weight", "encoder_blocks.15.norm2.bias", "decoder_blocks.16.norm1.weight", "decoder_blocks.16.norm1.bias", "decoder_blocks.16.attn.qkv.weight", "decoder_blocks.16.attn.qkv.bias", "decoder_blocks.16.attn.proj.weight", "decoder_blocks.16.attn.proj.bias", "decoder_blocks.16.norm2.weight", "decoder_blocks.16.norm2.bias", "decoder_blocks.16.mlp.fc1.weight", "decoder_blocks.16.mlp.fc1.bias", "decoder_blocks.16.mlp.fc2.weight", "decoder_blocks.16.mlp.fc2.bias", "decoder_blocks.17.norm1.weight", "decoder_blocks.17.norm1.bias", "decoder_blocks.17.attn.qkv.weight", "decoder_blocks.17.attn.qkv.bias", "decoder_blocks.17.attn.proj.weight", "decoder_blocks.17.attn.proj.bias", "decoder_blocks.17.norm2.weight", "decoder_blocks.17.norm2.bias", "decoder_blocks.17.mlp.fc1.weight", "decoder_blocks.17.mlp.fc1.bias", "decoder_blocks.17.mlp.fc2.weight", "decoder_blocks.17.mlp.fc2.bias", "decoder_blocks.18.norm1.weight", "decoder_blocks.18.norm1.bias", "decoder_blocks.18.attn.qkv.weight", "decoder_blocks.18.attn.qkv.bias", "decoder_blocks.18.attn.proj.weight", "decoder_blocks.18.attn.proj.bias", "decoder_blocks.18.norm2.weight", "decoder_blocks.18.norm2.bias", "decoder_blocks.18.mlp.fc1.weight", "decoder_blocks.18.mlp.fc1.bias", "decoder_blocks.18.mlp.fc2.weight", "decoder_blocks.18.mlp.fc2.bias", "decoder_blocks.19.norm1.weight", "decoder_blocks.19.norm1.bias", "decoder_blocks.19.attn.qkv.weight", "decoder_blocks.19.attn.qkv.bias", "decoder_blocks.19.attn.proj.weight", "decoder_blocks.19.attn.proj.bias", "decoder_blocks.19.norm2.weight", "decoder_blocks.19.norm2.bias", "decoder_blocks.19.mlp.fc1.weight", "decoder_blocks.19.mlp.fc1.bias", "decoder_blocks.19.mlp.fc2.weight", "decoder_blocks.19.mlp.fc2.bias", "decoder_blocks.0.attn.qkv.weight", "decoder_blocks.0.attn.qkv.bias", "decoder_blocks.0.attn.proj.weight", "decoder_blocks.0.attn.proj.bias", "decoder_blocks.0.mlp.fc1.weight", "decoder_blocks.0.mlp.fc1.bias", "decoder_blocks.0.mlp.fc2.weight", "decoder_blocks.0.mlp.fc2.bias", "decoder_blocks.0.norm1.weight", "decoder_blocks.0.norm1.bias", "decoder_blocks.0.norm2.weight", "decoder_blocks.0.norm2.bias", "decoder_blocks.1.attn.qkv.weight", "decoder_blocks.1.attn.qkv.bias", "decoder_blocks.1.attn.proj.weight", "decoder_blocks.1.attn.proj.bias", "decoder_blocks.1.mlp.fc1.weight", "decoder_blocks.1.mlp.fc1.bias", "decoder_blocks.1.mlp.fc2.weight", "decoder_blocks.1.mlp.fc2.bias", "decoder_blocks.1.norm1.weight", "decoder_blocks.1.norm1.bias", "decoder_blocks.1.norm2.weight", "decoder_blocks.1.norm2.bias", "decoder_blocks.2.attn.qkv.weight", "decoder_blocks.2.attn.qkv.bias", "decoder_blocks.2.attn.proj.weight", "decoder_blocks.2.attn.proj.bias", "decoder_blocks.2.mlp.fc1.weight", "decoder_blocks.2.mlp.fc1.bias", "decoder_blocks.2.mlp.fc2.weight", "decoder_blocks.2.mlp.fc2.bias", "decoder_blocks.2.norm1.weight", "decoder_blocks.2.norm1.bias", "decoder_blocks.2.norm2.weight", "decoder_blocks.2.norm2.bias", "decoder_blocks.3.attn.qkv.weight", "decoder_blocks.3.attn.qkv.bias", "decoder_blocks.3.attn.proj.weight", "decoder_blocks.3.attn.proj.bias", "decoder_blocks.3.mlp.fc1.weight", "decoder_blocks.3.mlp.fc1.bias", "decoder_blocks.3.mlp.fc2.weight", "decoder_blocks.3.mlp.fc2.bias", "decoder_blocks.3.norm1.weight", "decoder_blocks.3.norm1.bias", "decoder_blocks.3.norm2.weight", "decoder_blocks.3.norm2.bias", "decoder_blocks.4.attn.qkv.weight", "decoder_blocks.4.attn.qkv.bias", "decoder_blocks.4.attn.proj.weight", "decoder_blocks.4.attn.proj.bias", "decoder_blocks.4.mlp.fc1.weight", "decoder_blocks.4.mlp.fc1.bias", "decoder_blocks.4.mlp.fc2.weight", "decoder_blocks.4.mlp.fc2.bias", "decoder_blocks.4.norm1.weight", "decoder_blocks.4.norm1.bias", "decoder_blocks.4.norm2.weight", "decoder_blocks.4.norm2.bias", "decoder_blocks.5.attn.qkv.weight", "decoder_blocks.5.attn.qkv.bias", "decoder_blocks.5.attn.proj.weight", "decoder_blocks.5.attn.proj.bias", "decoder_blocks.5.mlp.fc1.weight", "decoder_blocks.5.mlp.fc1.bias", "decoder_blocks.5.mlp.fc2.weight", "decoder_blocks.5.mlp.fc2.bias", "decoder_blocks.5.norm1.weight", "decoder_blocks.5.norm1.bias", "decoder_blocks.5.norm2.weight", "decoder_blocks.5.norm2.bias", "decoder_blocks.6.attn.qkv.weight", "decoder_blocks.6.attn.qkv.bias", "decoder_blocks.6.attn.proj.weight", "decoder_blocks.6.attn.proj.bias", "decoder_blocks.6.mlp.fc1.weight", "decoder_blocks.6.mlp.fc1.bias", "decoder_blocks.6.mlp.fc2.weight", "decoder_blocks.6.mlp.fc2.bias", "decoder_blocks.6.norm1.weight", "decoder_blocks.6.norm1.bias", "decoder_blocks.6.norm2.weight", "decoder_blocks.6.norm2.bias", "decoder_blocks.7.attn.qkv.weight", "decoder_blocks.7.attn.qkv.bias", "decoder_blocks.7.attn.proj.weight", "decoder_blocks.7.attn.proj.bias", "decoder_blocks.7.mlp.fc1.weight", "decoder_blocks.7.mlp.fc1.bias", "decoder_blocks.7.mlp.fc2.weight", "decoder_blocks.7.mlp.fc2.bias", "decoder_blocks.7.norm1.weight", "decoder_blocks.7.norm1.bias", "decoder_blocks.7.norm2.weight", "decoder_blocks.7.norm2.bias", "decoder_blocks.8.attn.qkv.weight", "decoder_blocks.8.attn.qkv.bias", "decoder_blocks.8.attn.proj.weight", "decoder_blocks.8.attn.proj.bias", "decoder_blocks.8.mlp.fc1.weight", "decoder_blocks.8.mlp.fc1.bias", "decoder_blocks.8.mlp.fc2.weight", "decoder_blocks.8.mlp.fc2.bias", "decoder_blocks.8.norm1.weight", "decoder_blocks.8.norm1.bias", "decoder_blocks.8.norm2.weight", "decoder_blocks.8.norm2.bias", "decoder_blocks.9.attn.qkv.weight", "decoder_blocks.9.attn.qkv.bias", "decoder_blocks.9.attn.proj.weight", "decoder_blocks.9.attn.proj.bias", "decoder_blocks.9.mlp.fc1.weight", "decoder_blocks.9.mlp.fc1.bias", "decoder_blocks.9.mlp.fc2.weight", "decoder_blocks.9.mlp.fc2.bias", "decoder_blocks.9.norm1.weight", "decoder_blocks.9.norm1.bias", "decoder_blocks.9.norm2.weight", "decoder_blocks.9.norm2.bias", "decoder_blocks.10.attn.qkv.weight", "decoder_blocks.10.attn.qkv.bias", "decoder_blocks.10.attn.proj.weight", "decoder_blocks.10.attn.proj.bias", "decoder_blocks.10.mlp.fc1.weight", "decoder_blocks.10.mlp.fc1.bias", "decoder_blocks.10.mlp.fc2.weight", "decoder_blocks.10.mlp.fc2.bias", "decoder_blocks.10.norm1.weight", "decoder_blocks.10.norm1.bias", "decoder_blocks.10.norm2.weight", "decoder_blocks.10.norm2.bias", "decoder_blocks.11.attn.qkv.weight", "decoder_blocks.11.attn.qkv.bias", "decoder_blocks.11.attn.proj.weight", "decoder_blocks.11.attn.proj.bias", "decoder_blocks.11.mlp.fc1.weight", "decoder_blocks.11.mlp.fc1.bias", "decoder_blocks.11.mlp.fc2.weight", "decoder_blocks.11.mlp.fc2.bias", "decoder_blocks.11.norm1.weight", "decoder_blocks.11.norm1.bias", "decoder_blocks.11.norm2.weight", "decoder_blocks.11.norm2.bias", "decoder_blocks.12.attn.qkv.weight", "decoder_blocks.12.attn.qkv.bias", "decoder_blocks.12.attn.proj.weight", "decoder_blocks.12.attn.proj.bias", "decoder_blocks.12.mlp.fc1.weight", "decoder_blocks.12.mlp.fc1.bias", "decoder_blocks.12.mlp.fc2.weight", "decoder_blocks.12.mlp.fc2.bias", "decoder_blocks.12.norm1.weight", "decoder_blocks.12.norm1.bias", "decoder_blocks.12.norm2.weight", "decoder_blocks.12.norm2.bias", "decoder_blocks.13.attn.qkv.weight", "decoder_blocks.13.attn.qkv.bias", "decoder_blocks.13.attn.proj.weight", "decoder_blocks.13.attn.proj.bias", "decoder_blocks.13.mlp.fc1.weight", "decoder_blocks.13.mlp.fc1.bias", "decoder_blocks.13.mlp.fc2.weight", "decoder_blocks.13.mlp.fc2.bias", "decoder_blocks.13.norm1.weight", "decoder_blocks.13.norm1.bias", "decoder_blocks.13.norm2.weight", "decoder_blocks.13.norm2.bias", "decoder_blocks.14.attn.qkv.weight", "decoder_blocks.14.attn.qkv.bias", "decoder_blocks.14.attn.proj.weight", "decoder_blocks.14.attn.proj.bias", "decoder_blocks.14.mlp.fc1.weight", "decoder_blocks.14.mlp.fc1.bias", "decoder_blocks.14.mlp.fc2.weight", "decoder_blocks.14.mlp.fc2.bias", "decoder_blocks.14.norm1.weight", "decoder_blocks.14.norm1.bias", "decoder_blocks.14.norm2.weight", "decoder_blocks.14.norm2.bias", "decoder_blocks.15.attn.qkv.weight", "decoder_blocks.15.attn.qkv.bias", "decoder_blocks.15.attn.proj.weight", "decoder_blocks.15.attn.proj.bias", "decoder_blocks.15.mlp.fc1.weight", "decoder_blocks.15.mlp.fc1.bias", "decoder_blocks.15.mlp.fc2.weight", "decoder_blocks.15.mlp.fc2.bias", "decoder_blocks.15.norm1.weight", "decoder_blocks.15.norm1.bias", "decoder_blocks.15.norm2.weight", "decoder_blocks.15.norm2.bias". 
+        size mismatch for fake_latent: copying a param with shape torch.Size([1, 1280]) from checkpoint, the shape in current model is torch.Size([1, 300, 1024]).
+        size mismatch for encoder_pos_embed_learned: copying a param with shape torch.Size([1, 320, 1280]) from checkpoint, the shape in current model is torch.Size([1, 256, 1024]).
+        size mismatch for mask_token: copying a param with shape torch.Size([1, 1, 1280]) from checkpoint, the shape in current model is torch.Size([1, 1, 1024]).
+        size mismatch for decoder_pos_embed_learned: copying a param with shape torch.Size([1, 320, 1280]) from checkpoint, the shape in current model is torch.Size([1, 256, 1024]).
+        size mismatch for diffusion_pos_embed_learned: copying a param with shape torch.Size([1, 256, 1280]) from checkpoint, the shape in current model is torch.Size([1, 256, 1024]).
+        size mismatch for z_proj.weight: copying a param with shape torch.Size([1280, 16]) from checkpoint, the shape in current model is torch.Size([1024, 16]).
+        size mismatch for z_proj.bias: copying a param with shape torch.Size([1280]) from checkpoint, the shape in current model is torch.Size([1024]).
+        size mismatch for z_proj_ln.weight: copying a param with shape torch.Size([1280]) from checkpoint, the shape in current model is torch.Size([1024]).
+        size mismatch for z_proj_ln.bias: copying a param with shape torch.Size([1280]) from checkpoint, the shape in current model is torch.Size([1024]).
+        size mismatch for encoder_norm.weight: copying a param with shape torch.Size([1280]) from checkpoint, the shape in current model is torch.Size([1024]).
+        size mismatch for encoder_norm.bias: copying a param with shape torch.Size([1280]) from checkpoint, the shape in current model is torch.Size([1024]).
+        size mismatch for decoder_embed.weight: copying a param with shape torch.Size([1280, 1280]) from checkpoint, the shape in current model is torch.Size([1024, 1024]).
+        size mismatch for decoder_embed.bias: copying a param with shape torch.Size([1280]) from checkpoint, the shape in current model is torch.Size([1024]).
+        size mismatch for decoder_norm.weight: copying a param with shape torch.Size([1280]) from checkpoint, the shape in current model is torch.Size([1024]).
+        size mismatch for decoder_norm.bias: copying a param with shape torch.Size([1280]) from checkpoint, the shape in current model is torch.Size([1024]).
+        size mismatch for diffloss.net.cond_embed.weight: copying a param with shape torch.Size([1024, 1280]) from checkpoint, the shape in current model is torch.Size([1024, 1024]).
+[2025-07-29 14:16:05,620] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 76597) of binary: /home/pai/envs/far/bin/python
+Traceback (most recent call last):
+  File "/home/pai/envs/far/bin/torchrun", line 33, in <module>
+    sys.exit(load_entry_point('torch==2.2.2', 'console_scripts', 'torchrun')())
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 347, in wrapper
+    return f(*args, **kwargs)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/run.py", line 812, in main
+    run(args)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/run.py", line 803, in run
+    elastic_launch(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 135, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 268, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+main_far_t2i.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-07-29_14:16:05
+  host      : dsw95381-5f7b687f66-w5sjz
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 76597)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
