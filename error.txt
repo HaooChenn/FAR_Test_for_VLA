@@ -1,116 +1,229 @@
-阶段2: T2I模型评估
-==========================================
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.95)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 2.5e-05
+    maximize: False
+    weight_decay: 0.02
+)
+[17:27:45.362587] Resume checkpoint pretrained_models/far/far_t2i
+[17:27:48.564485] With optim & sched!
+[17:27:49.309166] Switch to ema
+[17:27:49.339821] Generation step 1/5
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+    main(args)
+  File "main_far_t2i.py", line 290, in main
+    evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, vae, ema_params, args, 0, batch_size=args.eval_bsz, log_writer=log_writer, cfg=args.cfg, use_ema=True)
+  File "/mnt/nas-data-1/chenhao/FAR/engine_far_t2i.py", line 187, in evaluate
+    sampled_images = model_without_ddp.sample_tokens(vae, bsz=batch_size, num_iter=args.num_iter, cfg=cfg,
+  File "/mnt/nas-data-1/chenhao/FAR/models/far_t2i.py", line 357, in sample_tokens
+    sampled_token_latent = self.diffloss.sample(z, temperature_iter, cfg_iter, index, device)     # torch.Size([512, 16])
+TypeError: sample() takes from 2 to 5 positional arguments but 6 were given
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+    main(args)
+  File "main_far_t2i.py", line 290, in main
+    evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, vae, ema_params, args, 0, batch_size=args.eval_bsz, log_writer=log_writer, cfg=args.cfg, use_ema=True)
+  File "/mnt/nas-data-1/chenhao/FAR/engine_far_t2i.py", line 187, in evaluate
+    sampled_images = model_without_ddp.sample_tokens(vae, bsz=batch_size, num_iter=args.num_iter, cfg=cfg,
+  File "/mnt/nas-data-1/chenhao/FAR/models/far_t2i.py", line 357, in sample_tokens
+    sampled_token_latent = self.diffloss.sample(z, temperature_iter, cfg_iter, index, device)     # torch.Size([512, 16])
+TypeError: sample() takes from 2 to 5 positional arguments but 6 were given
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+    main(args)
+  File "main_far_t2i.py", line 290, in main
+    evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, vae, ema_params, args, 0, batch_size=args.eval_bsz, log_writer=log_writer, cfg=args.cfg, use_ema=True)
+  File "/mnt/nas-data-1/chenhao/FAR/engine_far_t2i.py", line 187, in evaluate
+    sampled_images = model_without_ddp.sample_tokens(vae, bsz=batch_size, num_iter=args.num_iter, cfg=cfg,
+  File "/mnt/nas-data-1/chenhao/FAR/models/far_t2i.py", line 357, in sample_tokens
+    sampled_token_latent = self.diffloss.sample(z, temperature_iter, cfg_iter, index, device)     # torch.Size([512, 16])
+TypeError: sample() takes from 2 to 5 positional arguments but 6 were given
+dsw95381-5f7b687f66-w5sjz:71505:71917 [0] NCCL INFO [Service thread] Connection closed by localRank 1
+dsw95381-5f7b687f66-w5sjz:71507:71916 [2] NCCL INFO [Service thread] Connection closed by localRank 1
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+    main(args)
+  File "main_far_t2i.py", line 290, in main
+    evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, vae, ema_params, args, 0, batch_size=args.eval_bsz, log_writer=log_writer, cfg=args.cfg, use_ema=True)
+  File "/mnt/nas-data-1/chenhao/FAR/engine_far_t2i.py", line 187, in evaluate
+    sampled_images = model_without_ddp.sample_tokens(vae, bsz=batch_size, num_iter=args.num_iter, cfg=cfg,
+  File "/mnt/nas-data-1/chenhao/FAR/models/far_t2i.py", line 357, in sample_tokens
+    sampled_token_latent = self.diffloss.sample(z, temperature_iter, cfg_iter, index, device)     # torch.Size([512, 16])
+TypeError: sample() takes from 2 to 5 positional arguments but 6 were given
+dsw95381-5f7b687f66-w5sjz:71508:71918 [3] NCCL INFO [Service thread] Connection closed by localRank 2
+[2025-07-29 17:27:54,798] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 71505) of binary: /home/pai/envs/far/bin/python
+Traceback (most recent call last):
+  File "/home/pai/envs/far/bin/torchrun", line 33, in <module>
+    sys.exit(load_entry_point('torch==2.2.2', 'console_scripts', 'torchrun')())
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 347, in wrapper
+    return f(*args, **kwargs)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/run.py", line 812, in main
+    run(args)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/run.py", line 803, in run
+    elastic_launch(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 135, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 268, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+main_far_t2i.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2025-07-29_17:27:54
+  host      : dsw95381-5f7b687f66-w5sjz
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 71506)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2025-07-29_17:27:54
+  host      : dsw95381-5f7b687f66-w5sjz
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 71507)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2025-07-29_17:27:54
+  host      : dsw95381-5f7b687f66-w5sjz
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 71508)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-07-29_17:27:54
+  host      : dsw95381-5f7b687f66-w5sjz
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 71505)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+结束时间: 2025-07-29 17:27:55
+错误：T2I评估失败，退出代码: 1
+请查看上方的错误信息进行调试
+❌ 运行 1 失败
+
+运行 2: medium prompts, 50 steps
 
 ==========================================
 运行T2I评估
 采样步数: 50
-提示词类型: simple
-架构配置: diffloss_d=3 (T2I专用架构)
+提示词类型: medium
+架构配置: diffloss_d=3, diffloss_w=1024
 ==========================================
-开始时间: 2025-07-29 16:57:28
-[2025-07-29 16:57:29,358] torch.distributed.run: [WARNING] 
-[2025-07-29 16:57:29,358] torch.distributed.run: [WARNING] *****************************************
-[2025-07-29 16:57:29,358] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
-[2025-07-29 16:57:29,358] torch.distributed.run: [WARNING] *****************************************
-| distributed init (rank 3): env://, gpu 3
-[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+开始时间: 2025-07-29 17:27:55
+[2025-07-29 17:27:56,675] torch.distributed.run: [WARNING] 
+[2025-07-29 17:27:56,675] torch.distributed.run: [WARNING] *****************************************
+[2025-07-29 17:27:56,675] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2025-07-29 17:27:56,675] torch.distributed.run: [WARNING] *****************************************
 | distributed init (rank 1): env://, gpu 1
-[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
-| distributed init (rank 0): env://, gpu 0
+| distributed init (rank 3): env://, gpu 3
 [W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
 | distributed init (rank 2): env://, gpu 2
 [W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
-dsw95381-5f7b687f66-w5sjz:38781:38781 [0] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
-dsw95381-5f7b687f66-w5sjz:38781:38781 [0] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
-dsw95381-5f7b687f66-w5sjz:38781:38781 [0] NCCL INFO cudaDriverVersion 12040
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+| distributed init (rank 0): env://, gpu 0
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+dsw95381-5f7b687f66-w5sjz:73372:73372 [0] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:73372:73372 [0] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:73372:73372 [0] NCCL INFO cudaDriverVersion 12040
 NCCL version 2.19.3+cuda11.8
-dsw95381-5f7b687f66-w5sjz:38784:38784 [3] NCCL INFO cudaDriverVersion 12040
-dsw95381-5f7b687f66-w5sjz:38784:38784 [3] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
-dsw95381-5f7b687f66-w5sjz:38784:38784 [3] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
-dsw95381-5f7b687f66-w5sjz:38782:38782 [1] NCCL INFO cudaDriverVersion 12040
-dsw95381-5f7b687f66-w5sjz:38782:38782 [1] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
-dsw95381-5f7b687f66-w5sjz:38782:38782 [1] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
-dsw95381-5f7b687f66-w5sjz:38783:38783 [2] NCCL INFO cudaDriverVersion 12040
-dsw95381-5f7b687f66-w5sjz:38783:38783 [2] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
-dsw95381-5f7b687f66-w5sjz:38783:38783 [2] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Using non-device net plugin version 0
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Using network IB
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Using non-device net plugin version 0
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Using network IB
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Using non-device net plugin version 0
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Using network IB
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Using non-device net plugin version 0
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Using network IB
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO comm 0x55753f254930 rank 1 nranks 4 cudaDev 1 nvmlDev 2 busId 4a000 commId 0x510b375dddd98c7f - Init START
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO comm 0x559fa4e56fd0 rank 0 nranks 4 cudaDev 0 nvmlDev 1 busId 1e000 commId 0x510b375dddd98c7f - Init START
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO comm 0x55847a857980 rank 2 nranks 4 cudaDev 2 nvmlDev 3 busId 4f000 commId 0x510b375dddd98c7f - Init START
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO comm 0x557818458a30 rank 3 nranks 4 cudaDev 3 nvmlDev 4 busId 89000 commId 0x510b375dddd98c7f - Init START
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Setting affinity for GPU 2 to ffffffff,00000000,ffffffff
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Setting affinity for GPU 1 to ffffffff,00000000,ffffffff
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Setting affinity for GPU 3 to ffffffff,00000000,ffffffff
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Setting affinity for GPU 4 to ffffffff,00000000,ffffffff,00000000
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Channel 00/02 :    0   1   2   3
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Channel 01/02 :    0   1   2   3
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] -1/-1/-1->3->2
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->0
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO P2P Chunksize set to 524288
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] 3/-1/-1->2->1
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO P2P Chunksize set to 524288
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO P2P Chunksize set to 524288
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO P2P Chunksize set to 524288
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Channel 00/0 : 1[2] -> 2[3] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Channel 01/0 : 1[2] -> 2[3] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Channel 00/0 : 0[1] -> 1[2] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Channel 00/0 : 3[4] -> 0[1] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Channel 01/0 : 3[4] -> 0[1] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Channel 01/0 : 0[1] -> 1[2] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Channel 00/0 : 2[3] -> 3[4] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Channel 01/0 : 2[3] -> 3[4] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Connected all rings
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Channel 00/0 : 3[4] -> 2[3] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Connected all rings
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Connected all rings
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Connected all rings
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Channel 01/0 : 3[4] -> 2[3] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Channel 00/0 : 1[2] -> 0[1] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Channel 00/0 : 2[3] -> 1[2] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Channel 01/0 : 1[2] -> 0[1] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Channel 01/0 : 2[3] -> 1[2] via P2P/CUMEM/read
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO Connected all trees
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO Connected all trees
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO Connected all trees
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO Connected all trees
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
-dsw95381-5f7b687f66-w5sjz:38781:39017 [0] NCCL INFO comm 0x559fa4e56fd0 rank 0 nranks 4 cudaDev 0 nvmlDev 1 busId 1e000 commId 0x510b375dddd98c7f - Init COMPLETE
-dsw95381-5f7b687f66-w5sjz:38783:39020 [2] NCCL INFO comm 0x55847a857980 rank 2 nranks 4 cudaDev 2 nvmlDev 3 busId 4f000 commId 0x510b375dddd98c7f - Init COMPLETE
-dsw95381-5f7b687f66-w5sjz:38782:39019 [1] NCCL INFO comm 0x55753f254930 rank 1 nranks 4 cudaDev 1 nvmlDev 2 busId 4a000 commId 0x510b375dddd98c7f - Init COMPLETE
-dsw95381-5f7b687f66-w5sjz:38784:39018 [3] NCCL INFO comm 0x557818458a30 rank 3 nranks 4 cudaDev 3 nvmlDev 4 busId 89000 commId 0x510b375dddd98c7f - Init COMPLETE
-[16:57:52.149453] job dir: /mnt/nas-data-1/chenhao/FAR
-[16:57:52.149690] Namespace(attn_dropout=0.1,
+dsw95381-5f7b687f66-w5sjz:73373:73373 [1] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:73375:73375 [3] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:73373:73373 [1] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:73375:73375 [3] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:73373:73373 [1] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:73375:73375 [3] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:73374:73374 [2] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:73374:73374 [2] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:73374:73374 [2] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO comm 0x558309a559c0 rank 0 nranks 4 cudaDev 0 nvmlDev 1 busId 1e000 commId 0xf238022cd8c98f08 - Init START
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO comm 0x563bd3456330 rank 2 nranks 4 cudaDev 2 nvmlDev 3 busId 4f000 commId 0xf238022cd8c98f08 - Init START
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO comm 0x564f68a56210 rank 3 nranks 4 cudaDev 3 nvmlDev 4 busId 89000 commId 0xf238022cd8c98f08 - Init START
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO comm 0x5607fa255430 rank 1 nranks 4 cudaDev 1 nvmlDev 2 busId 4a000 commId 0xf238022cd8c98f08 - Init START
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Setting affinity for GPU 3 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Setting affinity for GPU 1 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Setting affinity for GPU 4 to ffffffff,00000000,ffffffff,00000000
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Setting affinity for GPU 2 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] -1/-1/-1->3->2
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->0
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] 3/-1/-1->2->1
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Channel 00/02 :    0   1   2   3
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Channel 01/02 :    0   1   2   3
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Channel 00/0 : 0[1] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Channel 00/0 : 1[2] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Channel 01/0 : 1[2] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Channel 01/0 : 0[1] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Channel 00/0 : 2[3] -> 3[4] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Channel 01/0 : 2[3] -> 3[4] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Channel 00/0 : 3[4] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Channel 01/0 : 3[4] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Channel 00/0 : 1[2] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Channel 00/0 : 3[4] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Channel 01/0 : 1[2] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Channel 01/0 : 3[4] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Channel 00/0 : 2[3] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Channel 01/0 : 2[3] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:73374:73664 [2] NCCL INFO comm 0x563bd3456330 rank 2 nranks 4 cudaDev 2 nvmlDev 3 busId 4f000 commId 0xf238022cd8c98f08 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:73372:73661 [0] NCCL INFO comm 0x558309a559c0 rank 0 nranks 4 cudaDev 0 nvmlDev 1 busId 1e000 commId 0xf238022cd8c98f08 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:73375:73662 [3] NCCL INFO comm 0x564f68a56210 rank 3 nranks 4 cudaDev 3 nvmlDev 4 busId 89000 commId 0xf238022cd8c98f08 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:73373:73663 [1] NCCL INFO comm 0x5607fa255430 rank 1 nranks 4 cudaDev 1 nvmlDev 2 busId 4a000 commId 0xf238022cd8c98f08 - Init COMPLETE
+[17:28:11.921245] job dir: /mnt/nas-data-1/chenhao/FAR
+[17:28:11.921443] Namespace(attn_dropout=0.1,
 batch_size=16,
 blr=0.0001,
 buffer_size=0,
@@ -138,7 +251,7 @@ grad_clip=1.0,
 img_size=256,
 label_drop_prob=0.1,
 local_rank=-1,
-log_dir='./large_t2i_evaluation_results/t2i_steps50_simple',
+log_dir='./t2i_evaluation_results/t2i_steps50_medium',
 loss_weight=False,
 lr=None,
 lr_schedule='constant',
@@ -151,7 +264,7 @@ num_machine=1,
 num_sampling_steps='50',
 num_workers=5,
 online_eval=False,
-output_dir='./large_t2i_evaluation_results/t2i_steps50_simple',
+output_dir='./t2i_evaluation_results/t2i_steps50_medium',
 patch_size=1,
 pin_mem=True,
 proj_dropout=0.1,
@@ -172,18 +285,18 @@ vae_stride=16,
 warmup_epochs=100,
 weight_decay=0.02,
 world_size=4)
-[16:57:52.397773] Working with z of shape (1, 16, 16, 16) = 4096 dimensions.
-[16:57:52.963634] Loading pre-trained KL-VAE
-[16:57:52.963704] Missing keys:
-[16:57:52.963716] []
-[16:57:52.963726] Unexpected keys:
-[16:57:52.963734] []
-[16:57:52.963743] Restored from pretrained/vae/kl16.ckpt
-Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [01:15<00:00, 37.88s/it]
-Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [01:15<00:00, 37.89s/it]
-Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [01:14<00:00, 37.40s/it]
-Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [01:14<00:00, 37.37s/it]
-[16:59:21.029649] Model = FAR_T2I(
+[17:28:12.424421] Working with z of shape (1, 16, 16, 16) = 4096 dimensions.
+[17:28:12.981824] Loading pre-trained KL-VAE
+[17:28:12.981877] Missing keys:
+[17:28:12.981888] []
+[17:28:12.981899] Unexpected keys:
+[17:28:12.981911] []
+[17:28:12.981926] Restored from pretrained/vae/kl16.ckpt
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:03<00:00,  1.84s/it]
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:03<00:00,  1.96s/it]
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:03<00:00,  1.98s/it]
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:04<00:00,  2.01s/it]
+[17:28:35.897882] Model = FAR_T2I(
   (context_embed): Linear(in_features=1536, out_features=1024, bias=True)
   (z_proj): Linear(in_features=16, out_features=1024, bias=True)
   (z_proj_ln): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
@@ -295,12 +408,13 @@ Loading checkpoint shards: 100%|████████████████
     )
   )
 )
-[16:59:21.031785] Number of trainable parameters: 561.30256M
-[16:59:23.615276] base lr: 1.00e-04
-[16:59:23.615339] actual lr: 2.50e-05
-[16:59:23.615352] effective batch size: 64
+[17:28:35.901912] Number of trainable parameters: 561.30256M
+[17:28:36.532181] base lr: 1.00e-04
+[17:28:36.532237] actual lr: 2.50e-05
+[17:28:36.532252] effective batch size: 64
 [rank0]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
-[16:59:27.224578] AdamW (
+[rank2]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+[17:28:36.600348] AdamW (
 Parameter Group 0
     amsgrad: False
     betas: (0.9, 0.95)
@@ -325,13 +439,36 @@ Parameter Group 1
     maximize: False
     weight_decay: 0.02
 )
-[rank3]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
-[rank2]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
 [rank1]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
-[17:01:24.981374] Resume checkpoint pretrained_models/far/far_t2i
-[17:01:27.174728] With optim & sched!
-[17:01:27.755262] Switch to ema
-[17:01:27.774590] Generation step 1/5
+[rank3]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+[17:28:43.664477] Resume checkpoint pretrained_models/far/far_t2i
+[17:28:46.050254] With optim & sched!
+[17:28:47.310881] Switch to ema
+[17:28:47.336431] Generation step 1/5
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+    main(args)
+  File "main_far_t2i.py", line 290, in main
+    main(args)
+  File "main_far_t2i.py", line 290, in main
+    evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, vae, ema_params, args, 0, batch_size=args.eval_bsz, log_writer=log_writer, cfg=args.cfg, use_ema=True)
+  File "/mnt/nas-data-1/chenhao/FAR/engine_far_t2i.py", line 187, in evaluate
+    evaluate(text_tokenizer, text_model, llm_system_prompt, model_without_ddp, vae, ema_params, args, 0, batch_size=args.eval_bsz, log_writer=log_writer, cfg=args.cfg, use_ema=True)
+  File "/mnt/nas-data-1/chenhao/FAR/engine_far_t2i.py", line 187, in evaluate
+    sampled_images = model_without_ddp.sample_tokens(vae, bsz=batch_size, num_iter=args.num_iter, cfg=cfg,
+  File "/mnt/nas-data-1/chenhao/FAR/models/far_t2i.py", line 357, in sample_tokens
+    sampled_images = model_without_ddp.sample_tokens(vae, bsz=batch_size, num_iter=args.num_iter, cfg=cfg,
+  File "/mnt/nas-data-1/chenhao/FAR/models/far_t2i.py", line 357, in sample_tokens
+    sampled_token_latent = self.diffloss.sample(z, temperature_iter, cfg_iter, index, device)     # torch.Size([512, 16])
+TypeError: sample() takes from 2 to 5 positional arguments but 6 were given
+    sampled_token_latent = self.diffloss.sample(z, temperature_iter, cfg_iter, index, device)     # torch.Size([512, 16])
+TypeError: sample() takes from 2 to 5 positional arguments but 6 were given
+dsw95381-5f7b687f66-w5sjz:73373:73724 [1] NCCL INFO [Service thread] Connection closed by localRank 2
+dsw95381-5f7b687f66-w5sjz:73375:73721 [3] NCCL INFO [Service thread] Connection closed by localRank 2
+dsw95381-5f7b687f66-w5sjz:73375:73721 [3] NCCL INFO [Service thread] Connection closed by localRank 0
+dsw95381-5f7b687f66-w5sjz:73373:73724 [1] NCCL INFO [Service thread] Connection closed by localRank 0
 Traceback (most recent call last):
   File "main_far_t2i.py", line 351, in <module>
     main(args)
@@ -352,12 +489,8 @@ Traceback (most recent call last):
   File "/mnt/nas-data-1/chenhao/FAR/models/far_t2i.py", line 357, in sample_tokens
     sampled_token_latent = self.diffloss.sample(z, temperature_iter, cfg_iter, index, device)     # torch.Size([512, 16])
 TypeError: sample() takes from 2 to 5 positional arguments but 6 were given
-dsw95381-5f7b687f66-w5sjz:38782:39090 [1] NCCL INFO [Service thread] Connection closed by localRank 0
-dsw95381-5f7b687f66-w5sjz:38784:39089 [3] NCCL INFO [Service thread] Connection closed by localRank 0
-dsw95381-5f7b687f66-w5sjz:38783:39091 [2] NCCL INFO [Service thread] Connection closed by localRank 1
-[2025-07-29 17:01:34,637] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 38783 closing signal SIGTERM
-[2025-07-29 17:01:34,638] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 38784 closing signal SIGTERM
-[2025-07-29 17:01:35,922] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 38781) of binary: /home/pai/envs/far/bin/python
+[2025-07-29 17:28:56,799] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 73373 closing signal SIGTERM
+[2025-07-29 17:28:56,866] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 73372) of binary: /home/pai/envs/far/bin/python
 Traceback (most recent call last):
   File "/home/pai/envs/far/bin/torchrun", line 33, in <module>
     sys.exit(load_entry_point('torch==2.2.2', 'console_scripts', 'torchrun')())
@@ -377,19 +510,428 @@ main_far_t2i.py FAILED
 ------------------------------------------------------------
 Failures:
 [1]:
-  time      : 2025-07-29_17:01:34
+  time      : 2025-07-29_17:28:56
   host      : dsw95381-5f7b687f66-w5sjz
-  rank      : 1 (local_rank: 1)
-  exitcode  : 1 (pid: 38782)
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 73374)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2025-07-29_17:28:56
+  host      : dsw95381-5f7b687f66-w5sjz
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 73375)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 ------------------------------------------------------------
 Root Cause (first observed failure):
 [0]:
-  time      : 2025-07-29_17:01:34
+  time      : 2025-07-29_17:28:56
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 0 (local_rank: 0)
-  exitcode  : 1 (pid: 38781)
+  exitcode  : 1 (pid: 73372)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 ============================================================
+结束时间: 2025-07-29 17:28:57
+错误：T2I评估失败，退出代码: 1
+请查看上方的错误信息进行调试
+❌ 运行 2 失败
+
+运行 3: complex prompts, 50 steps
+
+==========================================
+运行T2I评估
+采样步数: 50
+提示词类型: complex
+架构配置: diffloss_d=3, diffloss_w=1024
+==========================================
+开始时间: 2025-07-29 17:28:57
+[2025-07-29 17:28:58,820] torch.distributed.run: [WARNING] 
+[2025-07-29 17:28:58,820] torch.distributed.run: [WARNING] *****************************************
+[2025-07-29 17:28:58,820] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2025-07-29 17:28:58,820] torch.distributed.run: [WARNING] *****************************************
+| distributed init (rank 3): env://, gpu 3
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+| distributed init (rank 2): env://, gpu 2
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+| distributed init (rank 0): env://, gpu 0
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+| distributed init (rank 1): env://, gpu 1
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+dsw95381-5f7b687f66-w5sjz:75193:75193 [0] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:75193:75193 [0] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:75193:75193 [0] NCCL INFO cudaDriverVersion 12040
+NCCL version 2.19.3+cuda11.8
+dsw95381-5f7b687f66-w5sjz:75195:75195 [2] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:75196:75196 [3] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:75196:75196 [3] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:75195:75195 [2] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:75196:75196 [3] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:75195:75195 [2] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:75194:75194 [1] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:75194:75194 [1] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:75194:75194 [1] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO comm 0x55f34ca57650 rank 3 nranks 4 cudaDev 3 nvmlDev 4 busId 89000 commId 0x1330129bd3060749 - Init START
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO comm 0x55c296e56cd0 rank 0 nranks 4 cudaDev 0 nvmlDev 1 busId 1e000 commId 0x1330129bd3060749 - Init START
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO comm 0x55c4d8056f90 rank 2 nranks 4 cudaDev 2 nvmlDev 3 busId 4f000 commId 0x1330129bd3060749 - Init START
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO comm 0x55649d256820 rank 1 nranks 4 cudaDev 1 nvmlDev 2 busId 4a000 commId 0x1330129bd3060749 - Init START
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Setting affinity for GPU 4 to ffffffff,00000000,ffffffff,00000000
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Setting affinity for GPU 2 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Setting affinity for GPU 1 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Setting affinity for GPU 3 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] 3/-1/-1->2->1
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Channel 00/02 :    0   1   2   3
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Channel 01/02 :    0   1   2   3
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->0
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] -1/-1/-1->3->2
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Channel 00/0 : 2[3] -> 3[4] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Channel 01/0 : 2[3] -> 3[4] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Channel 00/0 : 0[1] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Channel 00/0 : 1[2] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Channel 01/0 : 0[1] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Channel 01/0 : 1[2] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Channel 00/0 : 3[4] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Channel 01/0 : 3[4] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Channel 00/0 : 3[4] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Channel 01/0 : 3[4] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Channel 00/0 : 2[3] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Channel 01/0 : 2[3] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Channel 00/0 : 1[2] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Channel 01/0 : 1[2] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:75193:75429 [0] NCCL INFO comm 0x55c296e56cd0 rank 0 nranks 4 cudaDev 0 nvmlDev 1 busId 1e000 commId 0x1330129bd3060749 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:75195:75428 [2] NCCL INFO comm 0x55c4d8056f90 rank 2 nranks 4 cudaDev 2 nvmlDev 3 busId 4f000 commId 0x1330129bd3060749 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:75196:75430 [3] NCCL INFO comm 0x55f34ca57650 rank 3 nranks 4 cudaDev 3 nvmlDev 4 busId 89000 commId 0x1330129bd3060749 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:75194:75431 [1] NCCL INFO comm 0x55649d256820 rank 1 nranks 4 cudaDev 1 nvmlDev 2 busId 4a000 commId 0x1330129bd3060749 - Init COMPLETE
+[17:29:14.579965] job dir: /mnt/nas-data-1/chenhao/FAR
+[17:29:14.580224] Namespace(attn_dropout=0.1,
+batch_size=16,
+blr=0.0001,
+buffer_size=0,
+cached_path='',
+cfg=3.0,
+cfg_schedule='linear',
+class_num=1000,
+data_path='./prompts',
+device='cuda',
+diffloss_d=3,
+diffloss_w=1024,
+diffusion_batch_mul=1,
+dist_backend='nccl',
+dist_on_itp=False,
+dist_url='env://',
+distributed=True,
+ema=False,
+ema_rate=0.999,
+epochs=400,
+eval_bsz=32,
+eval_freq=2,
+evaluate=True,
+gpu=0,
+grad_clip=1.0,
+img_size=256,
+label_drop_prob=0.1,
+local_rank=-1,
+log_dir='./t2i_evaluation_results/t2i_steps50_complex',
+loss_weight=False,
+lr=None,
+lr_schedule='constant',
+mask_ratio_min=0.7,
+min_lr=0.0,
+model='far_t2i',
+num_gpus_permachine=2,
+num_iter=10,
+num_machine=1,
+num_sampling_steps='50',
+num_workers=5,
+online_eval=False,
+output_dir='./t2i_evaluation_results/t2i_steps50_complex',
+patch_size=1,
+pin_mem=True,
+proj_dropout=0.1,
+rank=0,
+resume='pretrained_models/far/far_t2i',
+save_last_freq=5,
+seed=1,
+speed_test=True,
+speed_test_steps=5,
+start_epoch=0,
+temperature=1.0,
+text_model_path='pretrained/Qwen2-VL-1.5B-Instruct',
+use_cached=False,
+use_unictrol=False,
+vae_embed_dim=16,
+vae_path='pretrained/vae/kl16.ckpt',
+vae_stride=16,
+warmup_epochs=100,
+weight_decay=0.02,
+world_size=4)
+[17:29:14.859608] Working with z of shape (1, 16, 16, 16) = 4096 dimensions.
+[17:29:15.484846] Loading pre-trained KL-VAE
+[17:29:15.484899] Missing keys:
+[17:29:15.484912] []
+[17:29:15.484924] Unexpected keys:
+[17:29:15.484935] []
+[17:29:15.484948] Restored from pretrained/vae/kl16.ckpt
+Loading checkpoint shards:   0%|                                                                                                                         | 0/2 [00:00<?, ?it/s]^C[2025-07-29 17:29:17,750] torch.distributed.elastic.agent.server.api: [WARNING] Received Signals.SIGINT death signal, shutting down workers
+[2025-07-29 17:29:17,751] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 75193 closing signal SIGINT
+[2025-07-29 17:29:17,751] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 75194 closing signal SIGINT
+[2025-07-29 17:29:17,751] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 75195 closing signal SIGINT
+[2025-07-29 17:29:17,751] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 75196 closing signal SIGINT
+Loading checkpoint shards:   0%|                                                                                                                         | 0/2 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+Loading checkpoint shards:   0%|                                                                                                                         | 0/2 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+Loading checkpoint shards:   0%|                                                                                                                         | 0/2 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+Loading checkpoint shards:   0%|                                                                                                                         | 0/2 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "main_far_t2i.py", line 351, in <module>
+            main(args)main(args)main(args)
+
+
+  File "main_far_t2i.py", line 216, in main
+  File "main_far_t2i.py", line 216, in main
+  File "main_far_t2i.py", line 216, in main
+    main(args)
+  File "main_far_t2i.py", line 216, in main
+    text_model = AutoModel.from_pretrained(args.text_model_path).cuda().eval()
+    text_model = AutoModel.from_pretrained(args.text_model_path).cuda().eval()  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
+
+    text_model = AutoModel.from_pretrained(args.text_model_path).cuda().eval()  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
+
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
+    text_model = AutoModel.from_pretrained(args.text_model_path).cuda().eval()
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
+    return model_class.from_pretrained(
+          File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 4225, in from_pretrained
+return model_class.from_pretrained(return model_class.from_pretrained(
+
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 4225, in from_pretrained
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 4225, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 4225, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 4751, in _load_pretrained_model
+    ) = cls._load_pretrained_model(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 4751, in _load_pretrained_model
+    ) = cls._load_pretrained_model(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 4751, in _load_pretrained_model
+    error_msgs += _load_state_dict_into_model(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 775, in _load_state_dict_into_model
+    error_msgs += _load_state_dict_into_model(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 775, in _load_state_dict_into_model
+    load(model_to_load, state_dict, prefix=start_prefix, assign_to_params_buffers=assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    error_msgs += _load_state_dict_into_model(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 775, in _load_state_dict_into_model
+    load(model_to_load, state_dict, prefix=start_prefix, assign_to_params_buffers=assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(model_to_load, state_dict, prefix=start_prefix, assign_to_params_buffers=assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  [Previous line repeated 1 more time]
+      File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 769, in load
+load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  [Previous line repeated 1 more time]
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 769, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    module._load_from_state_dict(*args)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2040, in _load_from_state_dict
+    module._load_from_state_dict(*args)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2040, in _load_from_state_dict
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  [Previous line repeated 1 more time]
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 769, in load
+    module._load_from_state_dict(*args)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2040, in _load_from_state_dict
+    param.copy_(input_param)
+KeyboardInterrupt    param.copy_(input_param)
+
+KeyboardInterrupt
+    param.copy_(input_param)
+KeyboardInterrupt
+    ) = cls._load_pretrained_model(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 4751, in _load_pretrained_model
+    error_msgs += _load_state_dict_into_model(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 775, in _load_state_dict_into_model
+    load(model_to_load, state_dict, prefix=start_prefix, assign_to_params_buffers=assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 773, in load
+    load(child, state_dict, prefix + name + ".", assign_to_params_buffers)
+  [Previous line repeated 1 more time]
+  File "/home/pai/envs/far/lib/python3.8/site-packages/transformers/modeling_utils.py", line 769, in load
+    module._load_from_state_dict(*args)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2040, in _load_from_state_dict
+    param.copy_(input_param)
+KeyboardInterrupt
+^C[2025-07-29 17:29:18,886] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 75193 closing signal SIGTERM
+[2025-07-29 17:29:18,886] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 75194 closing signal SIGTERM
+[2025-07-29 17:29:18,886] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 75195 closing signal SIGTERM
+[2025-07-29 17:29:18,887] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 75196 closing signal SIGTERM
+^CTraceback (most recent call last):
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/api.py", line 727, in run
+    result = self._invoke_run(role)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/api.py", line 868, in _invoke_run
+    time.sleep(monitor_interval)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 62, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 75169 got signal: 2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/api.py", line 734, in run
+    self._shutdown(e.sigval)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/local_elastic_agent.py", line 311, in _shutdown
+    self._pcontext.close(death_sig)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 318, in close
+    self._close(death_sig=death_sig, timeout=timeout)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 706, in _close
+    handler.proc.wait(time_to_wait)
+  File "/home/pai/envs/far/lib/python3.8/subprocess.py", line 1079, in wait
+    return self._wait(timeout=timeout)
+  File "/home/pai/envs/far/lib/python3.8/subprocess.py", line 1798, in _wait
+    time.sleep(delay)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 62, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 75169 got signal: 2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pai/envs/far/bin/torchrun", line 33, in <module>
+    sys.exit(load_entry_point('torch==2.2.2', 'console_scripts', 'torchrun')())
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 347, in wrapper
+    return f(*args, **kwargs)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/run.py", line 812, in main
+    run(args)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/run.py", line 803, in run
+    elastic_launch(
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 135, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 259, in launch_agent
+    result = agent.run()
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/metrics/api.py", line 123, in wrapper
+    result = f(*args, **kwargs)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/api.py", line 739, in run
+    self._shutdown()
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/local_elastic_agent.py", line 311, in _shutdown
+    self._pcontext.close(death_sig)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 318, in close
+    self._close(death_sig=death_sig, timeout=timeout)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 706, in _close
+    handler.proc.wait(time_to_wait)
+  File "/home/pai/envs/far/lib/python3.8/subprocess.py", line 1079, in wait
+    return self._wait(timeout=timeout)
+  File "/home/pai/envs/far/lib/python3.8/subprocess.py", line 1798, in _wait
+    time.sleep(delay)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 62, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 75169 got signal: 2
+结束时间: 2025-07-29 17:29:19
+错误：T2I评估失败，退出代码: 1
+请查看上方的错误信息进行调试
+❌ 运行 3 失败
+
+运行 4: simple prompts, 100 steps
+
+==========================================
+运行T2I评估
+采样步数: 100
+提示词类型: simple
+架构配置: diffloss_d=3, diffloss_w=1024
+==========================================
+开始时间: 2025-07-29 17:29:20
+^C^CTraceback (most recent call last):
+  File "/home/pai/envs/far/bin/torchrun", line 33, in <module>
+    sys.exit(load_entry_point('torch==2.2.2', 'console_scripts', 'torchrun')())
+  File "/home/pai/envs/far/bin/torchrun", line 25, in importlib_load_entry_point
+    return next(matches).load()
+  File "/home/pai/envs/far/lib/python3.8/importlib/metadata.py", line 77, in load
+    module = import_module(match.group('module'))
+  File "/home/pai/envs/far/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 961, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 961, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 783, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/__init__.py", line 1854, in <module>
+    from . import _meta_registrations
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/_meta_registrations.py", line 564, in <module>
+    @register_meta(aten.angle.default)
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/_ops.py", line 733, in __getattr__
+    op_, op_dk_, tags = torch._C._get_operation_overload(
+KeyboardInterrupt
