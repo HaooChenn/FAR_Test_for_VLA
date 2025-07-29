@@ -1,51 +1,49 @@
-   )
-  )
-)
-[15:58:07.238579] 可训练参数数量: 192.18M
-[rank2]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+16:21:40.082653] 可训练参数数量: 192.18M
 [rank3]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+[rank2]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
 [rank1]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
 [rank0]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
-[15:58:07.986545] 从 pretrained_models/far/far_base 加载检查点
+[16:21:42.600325] 从 pretrained_models/far/far_base 加载检查点
 Traceback (most recent call last):
-  File "imagenet_class_evaluation.py", line 437, in <module>
+  File "imagenet_class_evaluation.py", line 473, in <module>
     main(args)
-  File "imagenet_class_evaluation.py", line 395, in main
+  File "imagenet_class_evaluation.py", line 431, in main
     model_without_ddp.load_state_dict(checkpoint['model'])
   File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
     raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
 RuntimeError: Error(s) in loading state_dict for FAR:
         Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
 Traceback (most recent call last):
-  File "imagenet_class_evaluation.py", line 437, in <module>
+  File "imagenet_class_evaluation.py", line 473, in <module>
+    main(args)
+  File "imagenet_class_evaluation.py", line 431, in main
+    model_without_ddp.load_state_dict(checkpoint['model'])
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for FAR:
+        Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
 Traceback (most recent call last):
-  File "imagenet_class_evaluation.py", line 437, in <module>
-    main(args)
-  File "imagenet_class_evaluation.py", line 395, in main
-    main(args)
-  File "imagenet_class_evaluation.py", line 395, in main
+  File "imagenet_class_evaluation.py", line 473, in <module>
 Traceback (most recent call last):
-  File "imagenet_class_evaluation.py", line 437, in <module>
-    model_without_ddp.load_state_dict(checkpoint['model'])
-  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
-    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
-RuntimeError: Error(s) in loading state_dict for FAR:
-        Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
-    model_without_ddp.load_state_dict(checkpoint['model'])
-  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
-    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
-RuntimeError: Error(s) in loading state_dict for FAR:
-        Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
+  File "imagenet_class_evaluation.py", line 473, in <module>
     main(args)
-  File "imagenet_class_evaluation.py", line 395, in main
+  File "imagenet_class_evaluation.py", line 431, in main
+    main(args)
+  File "imagenet_class_evaluation.py", line 431, in main
     model_without_ddp.load_state_dict(checkpoint['model'])
   File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
     raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
 RuntimeError: Error(s) in loading state_dict for FAR:
         Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
-dsw95381-5f7b687f66-w5sjz:209889:210531 [32630] NCCL INFO [Service thread] Connection closed by localRank 3
-dsw95381-5f7b687f66-w5sjz:209891:210528 [32755] NCCL INFO [Service thread] Connection closed by localRank 3
-[2025-07-29 15:59:16,954] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 209889) of binary: /home/pai/envs/far/bin/python
+    model_without_ddp.load_state_dict(checkpoint['model'])
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for FAR:
+        Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
+dsw95381-5f7b687f66-w5sjz:254625:255567 [3] NCCL INFO [Service thread] Connection closed by localRank 0
+dsw95381-5f7b687f66-w5sjz:254623:255569 [32685] NCCL INFO [Service thread] Connection closed by localRank 0
+dsw95381-5f7b687f66-w5sjz:254624:255566 [32649] NCCL INFO [Service thread] Connection closed by localRank 1
+[2025-07-29 16:21:59,198] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 254621) of binary: /home/pai/envs/far/bin/python
 Traceback (most recent call last):
   File "/home/pai/envs/far/bin/torchrun", line 33, in <module>
     sys.exit(load_entry_point('torch==2.2.2', 'console_scripts', 'torchrun')())
@@ -65,33 +63,33 @@ imagenet_class_evaluation.py FAILED
 ------------------------------------------------------------
 Failures:
 [1]:
-  time      : 2025-07-29_15:59:16
+  time      : 2025-07-29_16:21:59
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 1 (local_rank: 1)
-  exitcode  : 1 (pid: 209890)
+  exitcode  : 1 (pid: 254623)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 [2]:
-  time      : 2025-07-29_15:59:16
+  time      : 2025-07-29_16:21:59
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 2 (local_rank: 2)
-  exitcode  : 1 (pid: 209891)
+  exitcode  : 1 (pid: 254624)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 [3]:
-  time      : 2025-07-29_15:59:16
+  time      : 2025-07-29_16:21:59
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 3 (local_rank: 3)
-  exitcode  : 1 (pid: 209893)
+  exitcode  : 1 (pid: 254625)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 ------------------------------------------------------------
 Root Cause (first observed failure):
 [0]:
-  time      : 2025-07-29_15:59:16
+  time      : 2025-07-29_16:21:59
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 0 (local_rank: 0)
-  exitcode  : 1 (pid: 209889)
+  exitcode  : 1 (pid: 254621)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 ============================================================
