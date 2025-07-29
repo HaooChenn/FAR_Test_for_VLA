@@ -1,14 +1,33 @@
 #!/bin/bash
 
-# FAR T2I专用评估脚本
-# 基于错误分析和代码修复的完整解决方案
+# FAR T2I专用评估脚本 - 自动代码修复版本
+# 自动修复sample()方法参数错误，无需手动改代码
 
 set -e  # 遇到任何错误时立即退出
 
 echo "=========================================="
 echo "FAR T2I 专用评估脚本"
-echo "修复了 sample() 方法参数错误的问题"
+echo "自动修复 sample() 方法参数错误"
 echo "=========================================="
+
+# 首先自动修复代码问题
+echo "正在自动修复代码中的参数错误..."
+
+# 创建备份
+if [ -f "./models/far_t2i.py" ]; then
+    cp ./models/far_t2i.py ./models/far_t2i.py.backup
+    echo "已创建 far_t2i.py 的备份文件"
+fi
+
+# 修复sample()方法调用中的参数错误
+if [ -f "./models/far_t2i.py" ]; then
+    # 使用sed命令自动修复错误的调用
+    sed -i 's/self\.diffloss\.sample(z, temperature_iter, cfg_iter, index, device)/self.diffloss.sample(z, temperature_iter, cfg_iter, index)/g' ./models/far_t2i.py
+    echo "✅ 已修复 far_t2i.py 中的 sample() 方法调用"
+else
+    echo "❌ 未找到 ./models/far_t2i.py 文件，请检查路径"
+    exit 1
+fi
 
 # 配置参数
 export CUDA_VISIBLE_DEVICES=1,2,3,4  # 使用4张GPU卡
