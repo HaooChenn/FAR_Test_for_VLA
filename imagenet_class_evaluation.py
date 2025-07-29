@@ -21,8 +21,13 @@ from typing import Optional
 from PIL import Image
 
 def save_image(images: torch.Tensor, nrow: int = 8, show: bool = True, path: Optional[str] = None, format: Optional[str] = None, to_grayscale: bool = False, **kwargs):
-    """Save generated images in a grid format with proper normalization"""
-    images = images * 0.5 + 0.5  # Denormalize from [-1,1] to [0,1]
+    """
+    保存生成的图像为网格格式，使用正确的归一化
+    
+    这个函数将模型输出的张量（范围[-1,1]）转换为可保存的图像格式。
+    归一化过程是图像生成中的关键步骤，确保显示效果正确。
+    """
+    images = images * 0.5 + 0.5  # 从[-1,1]范围反归一化到[0,1]
     grid = make_grid(images, nrow=nrow, **kwargs)
     grid = grid.mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to("cpu", torch.uint8).numpy()
     im = Image.fromarray(grid)
@@ -35,7 +40,12 @@ def save_image(images: torch.Tensor, nrow: int = 8, show: bool = True, path: Opt
     return grid
 
 def update_ema(target_params, source_params, rate=0.99):
-    """Update exponential moving average parameters"""
+    """
+    更新指数移动平均参数
+    
+    EMA是深度学习中提高模型稳定性的重要技术。通过维护参数的移动平均，
+    我们可以获得更平滑、更稳定的模型性能，特别是在生成任务中。
+    """
     for targ, src in zip(target_params, source_params):
         targ.detach().mul_(rate).add_(src, alpha=1 - rate)
 
@@ -43,24 +53,25 @@ def evaluate_imagenet_classes(model_without_ddp, vae, ema_params, args, epoch,
                              target_classes, batch_size=16, log_writer=None, 
                              cfg=1.0, use_ema=True):
     """
-    Evaluate ImageNet class-conditional generation for specific classes
+    评估ImageNet类别条件生成的核心函数
     
-    这个函数现在使用了正确的ImageNet模型推理接口，
-    通过分析engine_far.py，我们发现需要使用sample_tokens_nomask或sample_tokens_mask方法
+    这个函数现在使用了正确的ImageNet模型推理接口。通过深入分析engine_far.py，
+    我们发现ImageNet版本的FAR模型使用sample_tokens_nomask或sample_tokens_mask方法，
+    而不是T2I版本的sample_tokens方法。这种设计差异反映了不同任务的特殊需求。
     """
     model_without_ddp.eval()
     
-    # 设置每个类别生成的图像数量
-    images_per_class = 5  # 每个类别生成5张图片用于评估
-    num_steps = len(target_classes)  # 每个类别一个步骤
+    # 设置评估参数 - 这些参数经过精心调整以平衡质量和效率
+    images_per_class = 5  # 每个类别生成5张图片，足够展示模型性能
+    num_steps = len(target_classes)  # 每个类别一个生成步骤
     
-    # 创建详细的时间和生成日志目录
+    # 创建结果存储目录 - 良好的组织结构有助于后续分析
     speed_results_dir = os.path.join(args.output_dir, "speed_results")
     generated_images_dir = os.path.join(args.output_dir, "generated_images")
     os.makedirs(speed_results_dir, exist_ok=True)
     os.makedirs(generated_images_dir, exist_ok=True)
     
-    # 如果请求使用EMA参数，则切换到EMA参数
+    # EMA参数切换 - 使用EMA参数通常能获得更好的生成质量
     if use_ema:
         print("切换到EMA参数进行评估...")
         model_state_dict = copy.deepcopy(model_without_ddp.state_dict())
@@ -70,35 +81,35 @@ def evaluate_imagenet_classes(model_without_ddp, vae, ema_params, args, epoch,
             ema_state_dict[name] = ema_params[i]
         model_without_ddp.load_state_dict(ema_state_dict)
 
-    # 存储详细的时间统计和质量指标
+    # 性能统计初始化
     detailed_times = []
     total_generation_time = 0
     total_images_generated = 0
-    warmup_steps = 1  # 跳过第一步以获得准确的时间统计
+    warmup_steps = 1  # 跳过第一步以获得准确的性能测量
     
-    print(f"开始评估 {len(target_classes)} 个ImageNet类别...")
+    print(f"开始评估 {len(target_classes)} 个精心选择的ImageNet类别...")
     print(f"每个类别生成 {images_per_class} 张图片")
     
-    # 遍历每个目标类别
+    # 遍历每个目标类别进行生成
     for step, (class_name, class_id) in enumerate(target_classes.items()):
-        print(f"\n步骤 {step+1}/{num_steps}: 生成 {class_name} (类别 {class_id})")
+        print(f"\n步骤 {step+1}/{num_steps}: 生成 {class_name} (类别ID: {class_id})")
         
-        # 创建类别标签张量 - 为批次中的所有图片重复相同的类别ID
+        # 准备类别标签 - 对于类别条件生成，这是最重要的输入
         batch_size_current = min(batch_size, images_per_class)
         class_labels = torch.full((batch_size_current,), class_id, dtype=torch.long, device='cuda')
         
-        # 记录此类别生成的时间
+        # 开始计时 - 精确的性能测量有助于优化和对比
         torch.cuda.synchronize()
         step_start_time = time.time()
         
-        # 使用FAR模型生成图片
-        # 关键修复：使用正确的ImageNet推理方法
+        # 核心生成过程 - 这里使用了正确的ImageNet模型接口
         device = torch.device("cuda")
         with torch.no_grad():
             with torch.cuda.amp.autocast():
-                # 根据engine_far.py的实现，我们需要使用正确的方法名
+                # 关键修复：使用正确的ImageNet推理方法
+                # 根据engine_far.py的分析，我们需要调用正确的采样方法
                 if hasattr(args, 'mask') and args.mask:
-                    # 如果启用掩码，使用掩码采样方法
+                    # 掩码采样提供更多样化的结果，适合创造性任务
                     sampled_tokens = model_without_ddp.sample_tokens_mask(
                         bsz=batch_size_current, 
                         num_iter=args.num_iter, 
@@ -108,7 +119,7 @@ def evaluate_imagenet_classes(model_without_ddp, vae, ema_params, args, epoch,
                         temperature=args.temperature
                     )
                 else:
-                    # 标准采样方法（推荐用于评估）
+                    # 标准采样提供更稳定一致的结果，适合评估
                     sampled_tokens = model_without_ddp.sample_tokens_nomask(
                         bsz=batch_size_current, 
                         num_iter=args.num_iter, 
@@ -118,14 +129,16 @@ def evaluate_imagenet_classes(model_without_ddp, vae, ema_params, args, epoch,
                         temperature=args.temperature
                     )
                 
-                # 使用VAE解码器将潜在表示转换为图像
+                # VAE解码：将潜在空间的表示转换回图像空间
+                # 0.2325是VAE训练时的归一化因子，这个值对生成质量很关键
                 sampled_images = vae.decode(sampled_tokens / 0.2325)
 
+        # 记录性能数据
         torch.cuda.synchronize()
         step_end_time = time.time()
         step_time = step_end_time - step_start_time
         
-        # 记录详细的时间信息（跳过预热步骤）
+        # 性能统计（跳过预热步骤以获得准确测量）
         if step >= warmup_steps:
             detailed_times.append({
                 'step': step + 1,
@@ -143,32 +156,33 @@ def evaluate_imagenet_classes(model_without_ddp, vae, ema_params, args, epoch,
               f"(每张图片 {step_time/batch_size_current:.3f}秒, "
               f"{batch_size_current/step_time:.2f} 张图片/秒)")
         
-        # 保存此类别生成的图片
+        # 保存生成的图像
         torch.distributed.barrier()
         sampled_images = sampled_images.detach().cpu()
         
-        # 保存单个类别的结果
+        # 保存类别图像网格
         class_output_path = os.path.join(generated_images_dir, f"{class_name}_class{class_id}.png")
         save_image(sampled_images, nrow=min(4, batch_size_current), show=False, 
                   path=class_output_path, to_grayscale=False)
         
-        # 同时保存该类别生成的第一张图片作为独立文件
+        # 保存单个样本以便详细观察
         if sampled_images.shape[0] > 0:
             single_image_path = os.path.join(generated_images_dir, f"{class_name}_class{class_id}_sample1.png")
             save_image(sampled_images[0:1], nrow=1, show=False, path=single_image_path, to_grayscale=False)
 
-    # 计算综合统计数据（排除预热步骤）
+    # 生成综合性能报告
     if len(detailed_times) > 0:
         avg_time_per_image = total_generation_time / total_images_generated
         avg_images_per_second = total_images_generated / total_generation_time
         
-        # 创建综合的评估报告
+        # 创建详细的评估报告 - 这种结构化的报告有助于后续分析
         evaluation_report = {
             'model_configuration': {
                 'model_name': args.model,
                 'model_path': args.resume,
                 'use_ema': use_ema,
-                'timestamp': datetime.datetime.now().isoformat()
+                'timestamp': datetime.datetime.now().isoformat(),
+                'diffloss_depth': args.diffloss_d  # 记录关键架构参数
             },
             'generation_parameters': {
                 'batch_size': batch_size,
@@ -198,12 +212,11 @@ def evaluate_imagenet_classes(model_without_ddp, vae, ema_params, args, epoch,
             'detailed_class_results': detailed_times
         }
         
-        # 保存综合JSON报告
+        # 保存多种格式的报告以满足不同分析需求
         report_path = os.path.join(speed_results_dir, f"imagenet_evaluation_report_cfg{cfg}.json")
         with open(report_path, 'w') as f:
             json.dump(evaluation_report, f, indent=2)
         
-        # 保存CSV摘要以便于分析
         csv_path = os.path.join(speed_results_dir, f"imagenet_summary_cfg{cfg}.csv")
         with open(csv_path, 'w') as f:
             f.write("Class_Name,Class_ID,Images_Generated,Time_Per_Image,Images_Per_Second\n")
@@ -211,7 +224,7 @@ def evaluate_imagenet_classes(model_without_ddp, vae, ema_params, args, epoch,
                 f.write(f"{result['class_name']},{result['class_id']},{result['batch_size']},"
                        f"{result['time_per_image']:.5f},{result['images_per_second']:.2f}\n")
         
-        # 显示综合结果
+        # 输出易读的性能摘要
         print("\n" + "="*60)
         print("IMAGENET 类别条件评估结果")
         print("="*60)
@@ -225,20 +238,25 @@ def evaluate_imagenet_classes(model_without_ddp, vae, ema_params, args, epoch,
         print(f"生成的图片保存至: {generated_images_dir}")
         print("="*60 + "\n")
 
-    # 恢复原始模型参数
+    # 恢复原始模型参数 - 确保不影响后续操作
     if use_ema:
         print("恢复原始模型参数...")
         model_without_ddp.load_state_dict(model_state_dict)
 
 def get_args_parser():
-    """解析ImageNet类别评估的命令行参数"""
+    """
+    配置命令行参数解析器
+    
+    这个函数定义了所有必要的参数，特别注意架构相关的参数配置。
+    通过分析预训练权重的结构，我们确定了正确的参数值。
+    """
     parser = argparse.ArgumentParser('FAR ImageNet类别评估', add_help=False)
     
-    # 模型参数
+    # 模型基本参数
     parser.add_argument('--model', default='far_large', type=str, metavar='MODEL',
                         help='要评估的模型名称')
     
-    # VAE参数  
+    # VAE相关参数 - 这些参数必须与训练时保持一致
     parser.add_argument('--img_size', default=256, type=int,
                         help='图片输入尺寸')
     parser.add_argument('--vae_path', default="pretrained/vae/kl16.ckpt", type=str,
@@ -250,42 +268,55 @@ def get_args_parser():
     parser.add_argument('--patch_size', default=1, type=int,
                         help='作为一个补丁分组的token数量')
 
-    # 生成参数
+    # 生成过程参数 - 这些参数直接影响生成质量和速度
     parser.add_argument('--num_iter', default=10, type=int,
                         help='生成图片的自回归迭代次数')
-    parser.add_argument('--cfg', default=3.0, type=float, help="分类器自由指导")
-    parser.add_argument('--cfg_schedule', default="linear", type=str)
-    parser.add_argument('--temperature', default=1.0, type=float, help='采样温度')
-    parser.add_argument('--eval_bsz', type=int, default=8, help='生成批次大小')
-    parser.add_argument('--mask', action='store_true', help='使用掩码采样增加多样性')
+    parser.add_argument('--cfg', default=3.0, type=float, 
+                        help="分类器自由指导强度，更高值产生更符合类别的图像")
+    parser.add_argument('--cfg_schedule', default="linear", type=str,
+                        help="CFG调度策略")
+    parser.add_argument('--temperature', default=1.0, type=float, 
+                        help='采样温度，控制生成的随机性')
+    parser.add_argument('--eval_bsz', type=int, default=8, 
+                        help='生成批次大小，根据GPU内存调整')
+    parser.add_argument('--mask', action='store_true', 
+                        help='使用掩码采样增加生成多样性')
 
-    # 模型架构参数
+    # 模型架构参数 - 关键修复在这里
     parser.add_argument('--mask_ratio_min', type=float, default=0.7,
                         help='最小掩码比例')
-    parser.add_argument('--label_drop_prob', default=0.1, type=float)
+    parser.add_argument('--label_drop_prob', default=0.1, type=float,
+                        help='训练时的标签丢弃概率')
     parser.add_argument('--attn_dropout', type=float, default=0.1,
-                        help='注意力丢弃率')
+                        help='注意力层丢弃率')
     parser.add_argument('--proj_dropout', type=float, default=0.1,
-                        help='投影丢弃率')
-    parser.add_argument('--buffer_size', type=int, default=64)
-    parser.add_argument('--class_num', default=1000, type=int)
+                        help='投影层丢弃率')
+    parser.add_argument('--buffer_size', type=int, default=64,
+                        help='位置编码缓冲区大小')
+    parser.add_argument('--class_num', default=1000, type=int,
+                        help='ImageNet类别总数')
 
-    # 扩散损失参数
-    parser.add_argument('--diffloss_d', type=int, default=3)
-    parser.add_argument('--diffloss_w', type=int, default=1024)
-    parser.add_argument('--num_sampling_steps', type=str, default="100")
-    parser.add_argument('--diffusion_batch_mul', type=int, default=1)
+    # 扩散损失参数 - 核心修复：将深度从3改为6
+    parser.add_argument('--diffloss_d', type=int, default=6,  # 关键修复！
+                        help='扩散损失网络深度（残差块数量）')
+    parser.add_argument('--diffloss_w', type=int, default=1024,
+                        help='扩散损失网络宽度')
+    parser.add_argument('--num_sampling_steps', type=str, default="100",
+                        help='扩散采样步数')
+    parser.add_argument('--diffusion_batch_mul', type=int, default=1,
+                        help='扩散批次倍数')
 
     # 系统参数
     parser.add_argument('--output_dir', default='./output_dir',
                         help='保存结果的路径')
     parser.add_argument('--device', default='cuda',
                         help='用于评估的设备')
-    parser.add_argument('--seed', default=1, type=int)
+    parser.add_argument('--seed', default=1, type=int,
+                        help='随机种子确保可重现性')
     parser.add_argument('--resume', default='', required=True,
                         help='模型检查点路径')
 
-    # 分布式参数
+    # 分布式训练参数
     parser.add_argument('--world_size', default=1, type=int,
                         help='分布式进程数')
     parser.add_argument('--local_rank', default=-1, type=int)
@@ -296,79 +327,84 @@ def get_args_parser():
     return parser
 
 def main(args):
-    """ImageNet类别条件生成的主评估函数"""
+    """
+    ImageNet类别条件生成的主评估函数
     
-    # 如果需要，初始化分布式训练
+    这个函数协调整个评估过程，从模型加载到结果生成。
+    通过系统性的步骤确保评估的准确性和可靠性。
+    """
+    
+    # 初始化分布式环境（如果需要）
     misc.init_distributed_mode(args)
 
     print('评估目录: {}'.format(os.path.dirname(os.path.realpath(__file__))))
-    print("配置:")
+    print("配置参数:")
     print("{}".format(args).replace(', ', ',\n'))
 
     device = torch.device(args.device)
 
-    # 设置种子以确保可重现性
+    # 设置随机种子确保结果可重现
     seed = args.seed + misc.get_rank()
     torch.manual_seed(seed)
     np.random.seed(seed)
     cudnn.benchmark = True
 
-    # 定义我们要评估的目标ImageNet类别
-    # 这些代表了多样化的对象、动物和场景集合
+    # 定义要评估的目标ImageNet类别
+    # 这些类别经过精心选择，代表了不同的物体类型和复杂度
     target_classes = {
-        'golden_retriever': 207,       # 动物 - 狗品种
-        'tabby_cat': 281,             # 动物 - 猫品种  
+        'golden_retriever': 207,       # 动物 - 犬科
+        'tabby_cat': 281,             # 动物 - 猫科  
         'red_fox': 277,               # 动物 - 野生动物
         'monarch_butterfly': 323,      # 动物 - 昆虫
         'daisy': 985,                 # 植物 - 花朵
         'rose': 973,                  # 植物 - 花朵
-        'lighthouse': 437,            # 建筑 - 建筑物
+        'lighthouse': 437,            # 建筑 - 标志性建筑
         'castle': 483,                # 建筑 - 历史建筑
-        'cottage': 500,               # 建筑 - 房屋
-        'sports_car': 817,            # 车辆 - 汽车
-        'steam_locomotive': 820,       # 车辆 - 火车
-        'sailboat': 554,              # 车辆 - 船只
-        'aircraft_carrier': 403,       # 车辆 - 舰船
-        'mountain_bike': 671,         # 车辆 - 自行车
+        'cottage': 500,               # 建筑 - 住宅
+        'sports_car': 817,            # 交通工具 - 汽车
+        'steam_locomotive': 820,       # 交通工具 - 火车
+        'sailboat': 554,              # 交通工具 - 船只
+        'aircraft_carrier': 403,       # 交通工具 - 军舰
+        'mountain_bike': 671,         # 交通工具 - 自行车
         'pizza': 963,                 # 食物 - 预制食品
         'strawberry': 949,            # 食物 - 水果
-        'coffee_mug': 504,            # 物品 - 容器
-        'violin': 889,                # 物品 - 乐器
-        'backpack': 414,              # 物品 - 包
-        'umbrella': 879               # 物品 - 工具
+        'coffee_mug': 504,            # 日用品 - 容器
+        'violin': 889,                # 日用品 - 乐器
+        'backpack': 414,              # 日用品 - 包类
+        'umbrella': 879               # 日用品 - 工具
     }
 
     print(f"\n评估 {len(target_classes)} 个精心选择的ImageNet类别:")
     for class_name, class_id in target_classes.items():
         print(f"  {class_name}: {class_id}")
 
-    # 初始化VAE模型用于解码潜在表示
-    print("\n初始化VAE...")
+    # 初始化VAE模型 - 负责在图像和潜在空间之间转换
+    print("\n正在初始化VAE...")
     vae = AutoencoderKL(
         embed_dim=args.vae_embed_dim, 
         ch_mult=(1, 1, 2, 2, 4), 
         ckpt_path=args.vae_path
     ).cuda().eval()
     
-    # 冻结VAE参数
+    # 冻结VAE参数，因为我们只使用它进行推理
     for param in vae.parameters():
         param.requires_grad = False
     
-    # 使用指定架构初始化FAR模型
-    print(f"初始化FAR模型: {args.model}")
+    # 初始化FAR模型 - 关键是使用正确的架构参数
+    print(f"正在初始化FAR模型: {args.model}")
     model = far.__dict__[args.model](
         img_size=args.img_size,
         vae_stride=args.vae_stride,
         patch_size=args.patch_size,
         vae_embed_dim=args.vae_embed_dim,
-        mask=args.mask,  # 评估期间的掩码设置
+        mask=args.mask,
         mask_ratio_min=args.mask_ratio_min,
         label_drop_prob=args.label_drop_prob,
         class_num=args.class_num,
         attn_dropout=args.attn_dropout,
         proj_dropout=args.proj_dropout,
         buffer_size=args.buffer_size,
-        diffloss_d=args.diffloss_d,
+        diffloss_d=args.diffloss_d,  # 现在使用正确的值：6
         diffloss_w=args.diffloss_w,
         num_sampling_steps=args.num_sampling_steps,
         diffusion_batch_mul=args.diffusion_batch_mul,
@@ -377,25 +413,25 @@ def main(args):
     model.to(device)
     model_without_ddp = model
     
-    print("模型 = %s" % str(model))
+    print("模型结构 = %s" % str(model))
     n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print("可训练参数数量: {:.2f}M".format(n_params / 1e6))
 
-    # 如果需要，处理分布式训练
+    # 处理分布式并行（如果启用）
     if args.distributed:
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu])
         model_without_ddp = model.module
 
-    # 加载模型检查点
+    # 加载预训练模型检查点
     if args.resume and os.path.exists(os.path.join(args.resume, "checkpoint-last.pth")):
         print(f"从 {args.resume} 加载检查点")
         checkpoint = torch.load(os.path.join(args.resume, "checkpoint-last.pth"), map_location='cpu')
         
-        # 加载模型状态字典
+        # 加载模型权重 - 现在应该完美匹配
         model_without_ddp.load_state_dict(checkpoint['model'])
         model_params = list(model_without_ddp.parameters())
         
-        # 如果可用，加载EMA参数
+        # 加载EMA参数（如果存在）
         if 'model_ema' in checkpoint:
             ema_state_dict = checkpoint['model_ema']
             ema_params = [ema_state_dict[name].cuda() for name, _ in model_without_ddp.named_parameters()]
@@ -407,12 +443,12 @@ def main(args):
         print("检查点加载成功")
         del checkpoint
     else:
-        raise FileNotFoundError(f"在 {args.resume} 找不到检查点")
+        raise FileNotFoundError(f"在 {args.resume} 找不到检查点文件")
 
     # 创建输出目录
     Path(args.output_dir).mkdir(parents=True, exist_ok=True)
     
-    # 运行评估
+    # 开始评估过程
     print("\n开始ImageNet类别条件评估...")
     torch.cuda.empty_cache()
     
@@ -421,7 +457,7 @@ def main(args):
         vae=vae,
         ema_params=ema_params,
         args=args,
-        epoch=0,  # 对于评估不相关
+        epoch=0,  # 对于评估来说这个参数不重要
         target_classes=target_classes,
         batch_size=args.eval_bsz,
         log_writer=None,
