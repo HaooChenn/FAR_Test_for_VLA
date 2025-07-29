@@ -1,27 +1,279 @@
-16:21:40.082653] 可训练参数数量: 192.18M
-[rank3]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
-[rank2]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
-[rank1]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+==========================================
+运行ImageNet评估: far_large
+采样步数: 50
+==========================================
+开始时间: 2025-07-29 16:39:52
+[2025-07-29 16:39:54,009] torch.distributed.run: [WARNING] 
+[2025-07-29 16:39:54,009] torch.distributed.run: [WARNING] *****************************************
+[2025-07-29 16:39:54,009] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2025-07-29 16:39:54,009] torch.distributed.run: [WARNING] *****************************************
+| distributed init (rank 3): env://, gpu 3
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+| distributed init (rank 1): env://, gpu 1
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+| distributed init (rank 0): env://, gpu 0
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+| distributed init (rank 2): env://, gpu 2
+[W Utils.hpp:133] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarInt)
+dsw95381-5f7b687f66-w5sjz:17196:17196 [0] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:17196:17196 [0] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:17196:17196 [0] NCCL INFO cudaDriverVersion 12040
+NCCL version 2.19.3+cuda11.8
+dsw95381-5f7b687f66-w5sjz:17199:17199 [3] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:17199:17199 [3] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:17199:17199 [3] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:17197:17197 [1] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:17197:17197 [1] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:17197:17197 [1] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:17198:17198 [2] NCCL INFO cudaDriverVersion 12040
+dsw95381-5f7b687f66-w5sjz:17198:17198 [2] NCCL INFO Bootstrap : Using eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:17198:17198 [2] NCCL INFO NET/Plugin : dlerror=libnccl-net.so: cannot open shared object file: No such file or directory No plugin found (libnccl-net.so), using internal implementation
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO NET/IB : Using [0]mlx5_2:1/RoCE [1]mlx5_3:1/RoCE [2]mlx5_6:1/RoCE [3]mlx5_9:1/RoCE [RO]; OOB eth0:33.104.62.6<0>
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Using non-device net plugin version 0
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Using network IB
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO comm 0x55bba36a6380 rank 2 nranks 4 cudaDev 2 nvmlDev 3 busId 4f000 commId 0x5177d2c3e6628987 - Init START
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO comm 0x5640fd4a7920 rank 1 nranks 4 cudaDev 1 nvmlDev 2 busId 4a000 commId 0x5177d2c3e6628987 - Init START
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO comm 0x556b166a6b70 rank 0 nranks 4 cudaDev 0 nvmlDev 1 busId 1e000 commId 0x5177d2c3e6628987 - Init START
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO comm 0x5595ab8a6ee0 rank 3 nranks 4 cudaDev 3 nvmlDev 4 busId 89000 commId 0x5177d2c3e6628987 - Init START
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Setting affinity for GPU 1 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Setting affinity for GPU 2 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Setting affinity for GPU 4 to ffffffff,00000000,ffffffff,00000000
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Setting affinity for GPU 3 to ffffffff,00000000,ffffffff
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->0
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] 3/-1/-1->2->1
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Channel 00/02 :    0   1   2   3
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Channel 01/02 :    0   1   2   3
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO NCCL_MAX_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO NCCL_MIN_NCHANNELS set by environment to 2.
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] -1/-1/-1->3->2
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO P2P Chunksize set to 524288
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Channel 00/0 : 2[3] -> 3[4] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Channel 00/0 : 0[1] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Channel 01/0 : 2[3] -> 3[4] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Channel 01/0 : 0[1] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Channel 00/0 : 1[2] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Channel 01/0 : 1[2] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Channel 00/0 : 3[4] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Channel 01/0 : 3[4] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Connected all rings
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Channel 00/0 : 2[3] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Channel 00/0 : 3[4] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Channel 01/0 : 2[3] -> 1[2] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Channel 01/0 : 3[4] -> 2[3] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Channel 00/0 : 1[2] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Channel 01/0 : 1[2] -> 0[1] via P2P/CUMEM/read
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO Connected all trees
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO 2 coll channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO NCCL_LAUNCH_MODE set by environment to PARALLEL
+dsw95381-5f7b687f66-w5sjz:17198:17338 [2] NCCL INFO comm 0x55bba36a6380 rank 2 nranks 4 cudaDev 2 nvmlDev 3 busId 4f000 commId 0x5177d2c3e6628987 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:17197:17337 [1] NCCL INFO comm 0x5640fd4a7920 rank 1 nranks 4 cudaDev 1 nvmlDev 2 busId 4a000 commId 0x5177d2c3e6628987 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:17196:17335 [0] NCCL INFO comm 0x556b166a6b70 rank 0 nranks 4 cudaDev 0 nvmlDev 1 busId 1e000 commId 0x5177d2c3e6628987 - Init COMPLETE
+dsw95381-5f7b687f66-w5sjz:17199:17336 [3] NCCL INFO comm 0x5595ab8a6ee0 rank 3 nranks 4 cudaDev 3 nvmlDev 4 busId 89000 commId 0x5177d2c3e6628987 - Init COMPLETE
+[16:40:05.861186] 评估目录: /mnt/nas-data-1/chenhao/FAR
+[16:40:05.861270] 配置参数:
+[16:40:05.861346] Namespace(attn_dropout=0.1,
+buffer_size=64,
+cfg=3.0,
+cfg_schedule='linear',
+class_num=1000,
+device='cuda',
+diffloss_d=6,
+diffloss_w=1024,
+diffusion_batch_mul=1,
+dist_backend='nccl',
+dist_on_itp=False,
+dist_url='env://',
+distributed=True,
+eval_bsz=32,
+gpu=0,
+img_size=256,
+label_drop_prob=0.1,
+local_rank=-1,
+mask=False,
+mask_ratio_min=0.7,
+model='far_large',
+num_iter=10,
+num_sampling_steps='50',
+output_dir='./complete_evaluation_results/imagenet_far_large_steps50',
+patch_size=1,
+proj_dropout=0.1,
+rank=0,
+resume='pretrained_models/far/far_large',
+seed=1,
+temperature=1.0,
+vae_embed_dim=16,
+vae_path='pretrained/vae/kl16.ckpt',
+vae_stride=16,
+world_size=4)
+[16:40:05.861933] 
+评估 20 个精心选择的ImageNet类别:
+[16:40:05.861953]   golden_retriever: 207
+[16:40:05.861964]   tabby_cat: 281
+[16:40:05.861973]   red_fox: 277
+[16:40:05.861986]   monarch_butterfly: 323
+[16:40:05.861995]   daisy: 985
+[16:40:05.862004]   rose: 973
+[16:40:05.862013]   lighthouse: 437
+[16:40:05.862022]   castle: 483
+[16:40:05.862031]   cottage: 500
+[16:40:05.862041]   sports_car: 817
+[16:40:05.862050]   steam_locomotive: 820
+[16:40:05.862059]   sailboat: 554
+[16:40:05.862068]   aircraft_carrier: 403
+[16:40:05.862077]   mountain_bike: 671
+[16:40:05.862086]   pizza: 963
+[16:40:05.862095]   strawberry: 949
+[16:40:05.862104]   coffee_mug: 504
+[16:40:05.862113]   violin: 889
+[16:40:05.862122]   backpack: 414
+[16:40:05.862131]   umbrella: 879
+[16:40:05.862140] 
+正在初始化VAE...
+[16:40:06.065448] Working with z of shape (1, 16, 16, 16) = 4096 dimensions.
+[16:40:06.582900] Loading pre-trained KL-VAE
+[16:40:06.582970] Missing keys:
+[16:40:06.583156] []
+[16:40:06.583174] Unexpected keys:
+[16:40:06.583187] []
+[16:40:06.583197] Restored from pretrained/vae/kl16.ckpt
+[16:40:06.815351] 正在初始化FAR模型: far_large
+[16:40:14.574663] 模型结构 = FAR(
+  (class_emb): Embedding(1000, 1024)
+  (z_proj): Linear(in_features=16, out_features=1024, bias=True)
+  (z_proj_ln): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+  (encoder_blocks): ModuleList(
+    (0-15): 16 x Block(
+      (norm1): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+        (q_norm): Identity()
+        (k_norm): Identity()
+        (attn_drop): Dropout(p=0.1, inplace=False)
+        (proj): Linear(in_features=1024, out_features=1024, bias=True)
+        (proj_drop): Dropout(p=0.1, inplace=False)
+      )
+      (ls1): Identity()
+      (drop_path1): Identity()
+      (norm2): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+        (act): GELU(approximate='none')
+        (drop1): Dropout(p=0.1, inplace=False)
+        (norm): Identity()
+        (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+        (drop2): Dropout(p=0.1, inplace=False)
+      )
+      (ls2): Identity()
+      (drop_path2): Identity()
+    )
+  )
+  (encoder_norm): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+  (decoder_embed): Linear(in_features=1024, out_features=1024, bias=True)
+  (decoder_blocks): ModuleList(
+    (0-15): 16 x Block(
+      (norm1): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+        (q_norm): Identity()
+        (k_norm): Identity()
+        (attn_drop): Dropout(p=0.1, inplace=False)
+        (proj): Linear(in_features=1024, out_features=1024, bias=True)
+        (proj_drop): Dropout(p=0.1, inplace=False)
+      )
+      (ls1): Identity()
+      (drop_path1): Identity()
+      (norm2): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+        (act): GELU(approximate='none')
+        (drop1): Dropout(p=0.1, inplace=False)
+        (norm): Identity()
+        (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+        (drop2): Dropout(p=0.1, inplace=False)
+      )
+      (ls2): Identity()
+      (drop_path2): Identity()
+    )
+  )
+  (decoder_norm): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+  (diffloss): DiffLoss(
+    (net): SimpleMLPAdaLN(
+      (time_embed): TimestepEmbedder(
+        (mlp): Sequential(
+          (0): Linear(in_features=256, out_features=1024, bias=True)
+          (1): SiLU()
+          (2): Linear(in_features=1024, out_features=1024, bias=True)
+        )
+      )
+      (cond_embed): Linear(in_features=1024, out_features=1024, bias=True)
+      (index_cond_embed): Linear(in_features=1, out_features=1024, bias=True)
+      (input_proj): Linear(in_features=16, out_features=1024, bias=True)
+      (res_blocks): ModuleList(
+        (0-5): 6 x ResBlock(
+          (in_ln): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+          (mlp): Sequential(
+            (0): Linear(in_features=1024, out_features=1024, bias=True)
+            (1): SiLU()
+            (2): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (adaLN_modulation): Sequential(
+            (0): SiLU()
+            (1): Linear(in_features=1024, out_features=3072, bias=True)
+          )
+        )
+      )
+      (final_layer): FinalLayer(
+        (norm_final): LayerNorm((1024,), eps=1e-06, elementwise_affine=False)
+        (linear): Linear(in_features=1024, out_features=32, bias=True)
+        (adaLN_modulation): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=1024, out_features=2048, bias=True)
+        )
+      )
+    )
+  )
+)
+[16:40:14.576798] 可训练参数数量: 442.11M
 [rank0]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
-[16:21:42.600325] 从 pretrained_models/far/far_base 加载检查点
-Traceback (most recent call last):
-  File "imagenet_class_evaluation.py", line 473, in <module>
-    main(args)
-  File "imagenet_class_evaluation.py", line 431, in main
-    model_without_ddp.load_state_dict(checkpoint['model'])
-  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
-    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
-RuntimeError: Error(s) in loading state_dict for FAR:
-        Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
-Traceback (most recent call last):
-  File "imagenet_class_evaluation.py", line 473, in <module>
-    main(args)
-  File "imagenet_class_evaluation.py", line 431, in main
-    model_without_ddp.load_state_dict(checkpoint['model'])
-  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
-    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
-RuntimeError: Error(s) in loading state_dict for FAR:
-        Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
+[rank2]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+[rank3]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+[rank1]:[W Utils.hpp:106] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function getCvarString)
+[16:40:15.090553] 从 pretrained_models/far/far_large 加载检查点
 Traceback (most recent call last):
   File "imagenet_class_evaluation.py", line 473, in <module>
 Traceback (most recent call last):
@@ -34,16 +286,33 @@ Traceback (most recent call last):
   File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
     raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
 RuntimeError: Error(s) in loading state_dict for FAR:
-        Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
+        Missing key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
+Traceback (most recent call last):
+  File "imagenet_class_evaluation.py", line 473, in <module>
     model_without_ddp.load_state_dict(checkpoint['model'])
   File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
     raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
 RuntimeError: Error(s) in loading state_dict for FAR:
-        Unexpected key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
-dsw95381-5f7b687f66-w5sjz:254625:255567 [3] NCCL INFO [Service thread] Connection closed by localRank 0
-dsw95381-5f7b687f66-w5sjz:254623:255569 [32685] NCCL INFO [Service thread] Connection closed by localRank 0
-dsw95381-5f7b687f66-w5sjz:254624:255566 [32649] NCCL INFO [Service thread] Connection closed by localRank 1
-[2025-07-29 16:21:59,198] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 254621) of binary: /home/pai/envs/far/bin/python
+        Missing key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
+    main(args)
+  File "imagenet_class_evaluation.py", line 431, in main
+    model_without_ddp.load_state_dict(checkpoint['model'])
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for FAR:
+        Missing key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
+Traceback (most recent call last):
+  File "imagenet_class_evaluation.py", line 473, in <module>
+    main(args)
+  File "imagenet_class_evaluation.py", line 431, in main
+    model_without_ddp.load_state_dict(checkpoint['model'])
+  File "/home/pai/envs/far/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2153, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for FAR:
+        Missing key(s) in state_dict: "diffloss.net.res_blocks.3.in_ln.weight", "diffloss.net.res_blocks.3.in_ln.bias", "diffloss.net.res_blocks.3.mlp.0.weight", "diffloss.net.res_blocks.3.mlp.0.bias", "diffloss.net.res_blocks.3.mlp.2.weight", "diffloss.net.res_blocks.3.mlp.2.bias", "diffloss.net.res_blocks.3.adaLN_modulation.1.weight", "diffloss.net.res_blocks.3.adaLN_modulation.1.bias", "diffloss.net.res_blocks.4.in_ln.weight", "diffloss.net.res_blocks.4.in_ln.bias", "diffloss.net.res_blocks.4.mlp.0.weight", "diffloss.net.res_blocks.4.mlp.0.bias", "diffloss.net.res_blocks.4.mlp.2.weight", "diffloss.net.res_blocks.4.mlp.2.bias", "diffloss.net.res_blocks.4.adaLN_modulation.1.weight", "diffloss.net.res_blocks.4.adaLN_modulation.1.bias", "diffloss.net.res_blocks.5.in_ln.weight", "diffloss.net.res_blocks.5.in_ln.bias", "diffloss.net.res_blocks.5.mlp.0.weight", "diffloss.net.res_blocks.5.mlp.0.bias", "diffloss.net.res_blocks.5.mlp.2.weight", "diffloss.net.res_blocks.5.mlp.2.bias", "diffloss.net.res_blocks.5.adaLN_modulation.1.weight", "diffloss.net.res_blocks.5.adaLN_modulation.1.bias". 
+dsw95381-5f7b687f66-w5sjz:17197:17380 [32535] NCCL INFO [Service thread] Connection closed by localRank 2
+dsw95381-5f7b687f66-w5sjz:17197:17380 [32535] NCCL INFO [Service thread] Connection closed by localRank 0
+[2025-07-29 16:41:54,169] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 17196) of binary: /home/pai/envs/far/bin/python
 Traceback (most recent call last):
   File "/home/pai/envs/far/bin/torchrun", line 33, in <module>
     sys.exit(load_entry_point('torch==2.2.2', 'console_scripts', 'torchrun')())
@@ -63,33 +332,33 @@ imagenet_class_evaluation.py FAILED
 ------------------------------------------------------------
 Failures:
 [1]:
-  time      : 2025-07-29_16:21:59
+  time      : 2025-07-29_16:41:54
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 1 (local_rank: 1)
-  exitcode  : 1 (pid: 254623)
+  exitcode  : 1 (pid: 17197)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 [2]:
-  time      : 2025-07-29_16:21:59
+  time      : 2025-07-29_16:41:54
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 2 (local_rank: 2)
-  exitcode  : 1 (pid: 254624)
+  exitcode  : 1 (pid: 17198)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 [3]:
-  time      : 2025-07-29_16:21:59
+  time      : 2025-07-29_16:41:54
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 3 (local_rank: 3)
-  exitcode  : 1 (pid: 254625)
+  exitcode  : 1 (pid: 17199)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 ------------------------------------------------------------
 Root Cause (first observed failure):
 [0]:
-  time      : 2025-07-29_16:21:59
+  time      : 2025-07-29_16:41:54
   host      : dsw95381-5f7b687f66-w5sjz
   rank      : 0 (local_rank: 0)
-  exitcode  : 1 (pid: 254621)
+  exitcode  : 1 (pid: 17196)
   error_file: <N/A>
   traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
 ============================================================
